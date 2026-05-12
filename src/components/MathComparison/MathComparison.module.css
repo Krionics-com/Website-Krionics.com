@@ -1,16 +1,144 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
+.col {
+  padding: 36px 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+}
+
+.colHighlight {
+  background: var(--ink);
+  color: var(--cream-2);
+  border-right: none;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--text-2);
+}
+
+.tagLight {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(245, 241, 232, 0.5);
+}
+
+.cost {
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.costSub {
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  opacity: 0.5;
+}
+
+.costHighlight {
+  font-family: var(--serif);
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+}
+
+.costSubLight {
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  opacity: 0.6;
+}
+
+.costNote {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+  margin: 6px 0 20px;
+  letter-spacing: 0.04em;
+}
+
+.costNoteLight {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(245, 241, 232, 0.45);
+  margin: 6px 0 20px;
+  letter-spacing: 0.04em;
+}
+
+.rule {
+  height: 1px;
+  background: var(--border);
+  border: 0;
+  margin: 16px 0;
+}
+
+.ruleLight {
+  height: 1px;
+  background: rgba(245, 241, 232, 0.12);
+  border: 0;
+  margin: 16px 0;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+}
+
+.rowLabel   { color: var(--text-2); }
+.rowVal     { font-family: var(--mono); text-align: right; color: var(--text); }
+.rowValDark { font-family: var(--mono); text-align: right; font-weight: 500; color: var(--text); }
+
+.rowLabelLight   { color: rgba(245, 241, 232, 0.55); }
+.rowValLight     { font-family: var(--mono); text-align: right; color: rgba(245, 241, 232, 0.8); }
+.rowValHighlight { font-family: var(--mono); text-align: right; color: var(--primary); font-weight: 500; }
+
+/* Badge */
 .badge {
   position: absolute;
-  top: -1px;
-  right: -1px;
+  top: 0;
+  right: 0;
   background: var(--primary);
   color: var(--on-primary);
   font-family: var(--mono);
-  font-size: 11px;
-  padding: 5px 10px;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  padding: 5px 12px;
+  letter-spacing: 0.1em;
+  border-radius: 0 0 0 6px;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .col {
+    border-bottom: 1px solid var(--border);
+  }
+  .col:last-child {
+    border-bottom: none;
+  }
 }

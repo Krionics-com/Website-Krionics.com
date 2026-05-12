@@ -40,7 +40,7 @@ export function Founders() {
             <em style={{ fontStyle: 'italic' }}>That's the difference.</em>
           </h2>
           <p className="muted reveal" style={{ margin: 0, fontSize: 17, maxWidth: '54ch' }}>
-            Krionics was built by people who ran outbound, got burned by agencies, and decided to do it right. We're not a team of "growth hackers" — we're operators who built the system for ourselves first.
+            Krionics is three people who build, sell, and operate the systems. No account managers, no offshore execution teams — the people on this page do the work.
           </p>
         </div>
 
@@ -48,23 +48,34 @@ export function Founders() {
           <FounderCard
             initial="A"
             name="Aryan Bhendarkar"
-            role="Co-founder & Operations"
-            bio="Ran outbound for B2B SaaS teams before building Krionics. Tired of agencies that over-promised and under-delivered, he built the system he wished existed — and now operates it for clients."
+            role="Delivery Lead"
+            bio="Aryan builds and operates the systems. Every Service A and Service B build goes through him — from domain setup to voice agent prompts to the monthly optimization work that actually keeps systems performing."
             background={[
-              'Built cold outbound systems from scratch for 3+ companies',
-              'Deep expertise in Clay, Apollo, and deliverability infrastructure',
-              'Based in Bengaluru · Focused on systems that run without babysitting',
+              'Builds cold outbound systems end-to-end',
+              'Deep expertise in Clay, Apollo, Vapi, and n8n',
+              'Based in Bengaluru · Scaler School of Technology',
             ]}
           />
           <FounderCard
             initial="V"
-            name="— Bhendarkar"
-            role="Co-founder & Strategy"
-            bio="Background in B2B sales and go-to-market strategy. Brings the commercial lens to every system we build — ensuring the pipeline output actually converts, not just fills a calendar."
+            name="Vishwas"
+            role="Sales Lead"
+            bio="Vishwas runs every discovery call, writes every proposal, and owns the commercial relationship. Background in a failed B2B startup means he's been the buyer — and he remembers what it felt like to hire a bad agency."
             background={[
-              'GTM strategy for early-stage B2B teams',
-              'Focused on ICP definition and offer positioning',
-              'Believes the best outbound starts with a sharp hypothesis, not a big list',
+              'Leads all outbound, discovery calls, and closing',
+              'Focuses on ICP precision and offer positioning',
+              'Posts 3x/week on LinkedIn — specific results, not platitudes',
+            ]}
+          />
+          <FounderCard
+            initial="Av"
+            name="Avishkar"
+            role="Operations"
+            bio="Avishkar keeps the delivery machine running — client reports, documentation, repo hygiene, and the process work that lets Aryan focus on building. If it needs to be documented and tracked, Avishkar owns it."
+            background={[
+              'Owns all client reporting and communication logs',
+              'Builds and maintains the Agency OS documentation',
+              'Based in Bengaluru · Scaler School of Technology',
             ]}
           />
         </div>

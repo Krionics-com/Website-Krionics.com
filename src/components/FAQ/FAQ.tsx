@@ -30,7 +30,7 @@ function FAQItem({ q, a }: FAQItemProps) {
 
 export function FAQ() {
   return (
-    <section id="faq" style={{ paddingTop: 140, paddingBottom: 120 }}>
+    <section id="faq" style={{ paddingTop: 96, paddingBottom: 96 }}>
       <div className="container">
         <div style={{ marginBottom: 56 }}>
           <span className="eyebrow-2 reveal">09 / Objections</span>
@@ -41,35 +41,42 @@ export function FAQ() {
 
         <div className={`reveal ${styles.list}`}>
           <FAQItem
-            q="What if I'm not ready to pay full price yet?"
+            q="Is this really 30–50% cheaper than hiring an SDR?"
             a={
               <p>
-                We're taking on early clients at a rate meaningfully below what you see on the pricing page. We want 5 accounts we can point to publicly — logos, results, testimonials. In exchange for being an early reference, you get a discount we won't offer once those 5 spots are filled. Ask on the call whether there's still availability. We'll tell you straight.
+                Yes. An SDR fully loaded — salary, benefits, tools, manager time — runs $5,000–$8,000/month in the US. They take 3 months to ramp. Average tenure is 11 months. We're at $2,500/month from day 14. No ramp, no turnover, no severance conversation.
               </p>
             }
           />
           <FAQItem
-            q="How is this different from the agencies that already cold-emailed me?"
+            q="We've tried cold email before and it didn't work."
             a={
               <p>
-                Most agencies sell you a retainer and treat your account as one of 40. We operate a smaller book on purpose — you get a named account lead, a live dashboard, and weekly data. The other difference: we publish our pricing. If they won't quote you without three calls, you already know something.
+                What specifically broke — deliverability, list quality, message, or volume? Almost every cold email failure traces to one of those four. We diagnose which before we build. If your offer genuinely doesn't have product-market fit, we'll tell you on the call rather than take the retainer.
               </p>
             }
           />
           <FAQItem
-            q="What results can I realistically expect, and when?"
+            q="Can you guarantee a specific number of meetings?"
             a={
-              <>
-                <p>Infrastructure and list build takes 14 days. You'll see first sends in week 3. Meaningful reply data by week 6–8. Booked meetings typically start appearing at week 4–6 depending on your ICP and offer clarity.</p>
-                <p style={{ marginTop: 12 }}>We don't promise a specific number of meetings — that depends on your offer, your market, and your ICP quality. What we do promise: we run the system every day, we tell you what's working and what's not, and we adjust in real time. The ROI calculator on this page uses conservative assumptions — use your own numbers.</p>
-              </>
+              <p>
+                Honest answer: no. Any agency that does is lying. Booked meetings depend on your offer, your ICP, and your market. What we guarantee: the system runs every day, deliverability is monitored, sequences are optimized weekly, and you see everything in a live dashboard. Month-to-month after the minimum means we earn the renewal every month.
+              </p>
             }
           />
           <FAQItem
-            q="Do I need to be hands-on for this to work?"
+            q="Why would I trust an agency based in India?"
             a={
               <p>
-                You need 30 minutes for the kickoff call to get the ICP right, and 10–15 minutes a week to review the dashboard and respond to the weekly report. That's it. We don't need you to write copy, manage sequences, or babysit deliverability. That's what the retainer covers.
+                Three things to evaluate us on, in this order: communication quality (you're seeing it now), delivery quality (we'll show you a live system on the call), time-zone overlap (we cover US mornings). Geography only changes the timezone — and the price, which is why you're roughly 30% below what a US agency would charge for the same output.
+              </p>
+            }
+          />
+          <FAQItem
+            q="We're not ready right now — maybe Q3."
+            a={
+              <p>
+                What changes between now and Q3? Most "not now" situations are the same problem in 3 months, just bigger. If there's a specific reason — budget cycle, headcount, product launch — tell us and we'll plan around it. If it's uncertainty, book the call. We won't pitch you if the timing is wrong.
               </p>
             }
           />

@@ -40,12 +40,17 @@
   --gutter: 24px;
   --radius-sm: 4px;
   --radius: 8px;
-  --section-y: 140px;
-  --section-y-mobile: 80px;
+  --section-y: 96px;
+  --section-y-mobile: 60px;
 }
 
 /* ── Reset ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
 
 html, body {
   margin: 0;
@@ -391,7 +396,7 @@ section { padding: var(--section-y) 0; }
 .dark-section {
   background: var(--ink);
   color: var(--cream-2);
-  padding: 140px 0;
+  padding: 96px 0;
 }
 .dark-section .muted { color: rgba(245, 241, 232, 0.6); }
 .dark-section .eyebrow-2 { color: rgba(245, 241, 232, 0.6); }

@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0;
   border: 1px solid var(--border);
 }
@@ -39,12 +39,15 @@
 
 @media (max-width: 960px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .card {
-    border-right: none;
     border-bottom: 1px solid var(--border);
+  }
+
+  .card:nth-child(even) {
+    border-right: none;
   }
 
   .card:last-child {
@@ -53,7 +56,17 @@
 }
 
 @media (max-width: 640px) {
-  .card {
+  .grid {
     grid-template-columns: 1fr;
+  }
+
+  .card {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    grid-template-columns: 1fr;
+  }
+
+  .card:last-child {
+    border-bottom: none;
   }
 }

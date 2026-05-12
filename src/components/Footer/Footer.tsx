@@ -19,7 +19,7 @@ export function Footer() {
           <div>
             <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,241,232,0.4)', display: 'block', marginBottom: 16 }}>Services</span>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {['Cold outbound system', 'Full pipeline system', 'Infrastructure setup', 'Deliverability management'].map((item) => (
+              {['AI Cold Outbound System', 'AI Voice Agents'].map((item) => (
                 <li key={item}>
                   <Link to="/#services" style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
@@ -84,7 +84,7 @@ export function Footer() {
             © {new Date().getFullYear()} Krionics. All rights reserved.
           </span>
           <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.06em' }}>
-            B2B pipeline systems · Cold outbound · LinkedIn outreach
+            B2B pipeline systems · Cold outbound · AI voice agents
           </span>
         </div>
       </div>

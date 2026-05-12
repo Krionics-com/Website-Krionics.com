@@ -5,45 +5,66 @@ const metrics = [
   { label: 'MEETINGS BOOKED', value: '—' },
   { label: 'REPLY RATE', value: '—' },
   { label: 'EMAILS SENT', value: '—' },
-  { label: 'COST PER MEETING', value: '—' },
+  { label: 'COST PER MTG', value: '—' },
 ]
 
 function DashCard() {
   return (
-    <div className={styles.dashCard}>
-      <div className={styles.dashCardHeader}>
-        <div className={styles.dashCardHeaderLeft}>
-          <span className={styles.liveDot} />
-          <span className={styles.liveLabel}>LIVE DASHBOARD</span>
+    <div className={styles.cardOuter}>
+      <div className={styles.badgeMeeting}>
+        <span className={styles.badgeDot} />
+        <div>
+          <span className={styles.badgeLabel}>New meeting booked</span>
+          <span className={styles.badgeSub}>Sarah Kim · Acme Corp</span>
         </div>
-        <span className={styles.dayLabel}>Day 15 of program</span>
       </div>
-      <div className={styles.metricsGrid}>
-        {metrics.map((m) => (
-          <div key={m.label} className={styles.metricTile}>
-            <span className={styles.metricLabel}>{m.label}</span>
-            <span className={styles.metricValue}>{m.value}</span>
+
+      <div className={styles.dashCard}>
+        <div className={styles.dashCardHeader}>
+          <div className={styles.dashCardHeaderLeft}>
+            <span className={styles.liveDot} />
+            <span className={styles.liveLabel}>LIVE DASHBOARD</span>
           </div>
-        ))}
+          <span className={styles.dayLabel}>Day 15 of program</span>
+        </div>
+        <div className={styles.metricsGrid}>
+          {metrics.map((m) => (
+            <div key={m.label} className={styles.metricTile}>
+              <span className={styles.metricLabel}>{m.label}</span>
+              <span className={styles.metricValue}>{m.value}</span>
+            </div>
+          ))}
+        </div>
+        <div className={styles.chartMini}>
+          {[30, 45, 35, 60, 50, 70, 42, 80, 58, 72, 48, 88, 65, 92].map((h, i) => (
+            <div key={i} className={styles.chartBar} style={{ height: `${h}%`, opacity: 0.12 + (i / 14) * 0.5 }} />
+          ))}
+        </div>
+        <p className={styles.dashNote}>Your real numbers populate here on day 15.</p>
       </div>
-      <p className={styles.dashNote}>Your real numbers appear here on day 15.</p>
+
+      <div className={styles.badgeReply}>
+        <span className={styles.badgeReplyLabel}>REPLY RATE</span>
+        <span className={styles.badgeReplyValue}>—%</span>
+      </div>
     </div>
   )
 }
 
 export function Hero() {
   return (
-    <section style={{ paddingTop: 80, paddingBottom: 96 }}>
+    <section className={styles.heroSection}>
+      <div className={styles.dotGrid} />
       <div className="container-wide">
-        <div className={`${styles.heroGrid} grid-hero`} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 1fr)', gap: 80, alignItems: 'center' }}>
+        <div className={`${styles.heroGrid} grid-hero`}>
           <div>
-            <span className="eyebrow-2 rise rise-d1" style={{ marginBottom: 32, display: 'inline-flex' }}>
+            <span className={`eyebrow-2 rise rise-d1 ${styles.eyebrow}`}>
               B2B pipeline systems · Bengaluru
             </span>
-            <h1 className="mega rise rise-d2" style={{ marginTop: 28 }}>
+            <h1 className={`mega rise rise-d2 ${styles.headline}`}>
               Your next 12 clients are in someone else's <em>pipeline.</em>
             </h1>
-            <p className="rise rise-d3" style={{ fontSize: 19, lineHeight: 1.55, marginTop: 40, maxWidth: '52ch', color: 'var(--text)' }}>
+            <p className={`rise rise-d3 ${styles.subtext}`}>
               While you're tweaking sequences and warming domains, your competitors are booking the meetings you should be in. We build and run the entire outbound system — you show up to qualified calls.
             </p>
             <div className={`rise rise-d4 ${styles.ctaRow}`}>
@@ -62,7 +83,7 @@ export function Hero() {
               <span className={styles.trustItem}>YOU OWN EVERYTHING WE BUILD</span>
             </div>
           </div>
-          <div className="rise rise-d3">
+          <div className={`rise rise-d3 ${styles.cardSide}`}>
             <DashCard />
           </div>
         </div>

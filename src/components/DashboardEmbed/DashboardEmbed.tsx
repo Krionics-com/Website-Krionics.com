@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 import styles from './DashboardEmbed.module.css'
 
 const KPI_CARDS = [
-  { label: 'Meetings booked (30d)', value: '—', delta: null },
-  { label: 'Open rate', value: '—', delta: null },
-  { label: 'Reply rate', value: '—', delta: null },
-  { label: 'Pipeline created', value: '—', delta: null },
+  { label: 'Meetings booked (30d)', value: '—' },
+  { label: 'Open rate', value: '—' },
+  { label: 'Reply rate', value: '—' },
+  { label: 'Pipeline created', value: '—' },
 ]
 
 const INBOX_ROWS = [
@@ -23,15 +23,15 @@ const STATUS_COLORS: Record<string, string> = {
 
 export function DashboardEmbed() {
   return (
-    <section style={{ paddingTop: 140, paddingBottom: 0 }}>
+    <section style={{ paddingTop: 96, paddingBottom: 0 }}>
       <div className="container">
-        <div style={{ marginBottom: 56 }}>
-          <span className="eyebrow-2 reveal">04 / The dashboard</span>
+        <div style={{ marginBottom: 48 }}>
+          <span className="eyebrow-2 reveal">05 / The dashboard</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 16px', maxWidth: '22ch', letterSpacing: '-0.02em' }}>
             You see everything.<br /><em style={{ fontStyle: 'italic' }}>Every day.</em>
           </h2>
-          <p className="muted reveal" style={{ margin: 0, fontSize: 17, maxWidth: '54ch' }}>
-            Not a monthly PDF. Not a Zoom debrief. A live dashboard — your pipeline data, in real time. Here's what it looks like on Day 15 of your program.
+          <p className="muted reveal" style={{ margin: 0, fontSize: 17, maxWidth: '56ch' }}>
+            Not a monthly PDF. Not a Zoom debrief. A live dashboard — your pipeline data, updated daily. This is what it looks like on Day 15.
           </p>
         </div>
 
@@ -40,7 +40,9 @@ export function DashboardEmbed() {
           <div className={styles.screen}>
             <div className={styles.screenBar}>
               <div className={styles.screenDots}>
-                <span /><span /><span />
+                <span style={{ background: '#ff5f57' }} />
+                <span style={{ background: '#febc2e' }} />
+                <span style={{ background: '#28c840' }} />
               </div>
               <span className={styles.screenTitle}>Overview — Day 15</span>
               <span className={styles.screenLive}><span className="live-pip" />LIVE</span>
@@ -51,7 +53,7 @@ export function DashboardEmbed() {
                 <div key={k.label} className={styles.kpiCard}>
                   <span className={styles.kpiLabel}>{k.label}</span>
                   <div className={styles.kpiValue}>{k.value}</div>
-                  <span className={styles.kpiSub}>Your real numbers appear here on day 15</span>
+                  <span className={styles.kpiSub}>Populates day 15</span>
                 </div>
               ))}
             </div>
@@ -59,8 +61,8 @@ export function DashboardEmbed() {
             <div className={styles.chartPlaceholder}>
               <span className={styles.chartLabel}>Reply volume — last 14 days</span>
               <div className={styles.chartBars}>
-                {[40, 55, 35, 70, 60, 80, 45, 90, 65, 75, 50, 85, 70, 95].map((h, i) => (
-                  <div key={i} className={styles.bar} style={{ height: `${h}%`, opacity: 0.15 + (i / 14) * 0.45 }} />
+                {[30, 48, 36, 62, 52, 74, 44, 88, 60, 76, 50, 84, 68, 94].map((h, i) => (
+                  <div key={i} className={styles.bar} style={{ height: `${h}%`, opacity: 0.12 + (i / 14) * 0.52 }} />
                 ))}
               </div>
             </div>
@@ -70,7 +72,9 @@ export function DashboardEmbed() {
           <div className={styles.screen}>
             <div className={styles.screenBar}>
               <div className={styles.screenDots}>
-                <span /><span /><span />
+                <span style={{ background: '#ff5f57' }} />
+                <span style={{ background: '#febc2e' }} />
+                <span style={{ background: '#28c840' }} />
               </div>
               <span className={styles.screenTitle}>Replies — inbox</span>
               <span className={styles.screenBadge}>4 new</span>
@@ -102,18 +106,18 @@ export function DashboardEmbed() {
             </table>
 
             <div className={styles.screenFooter}>
-              <span>Showing 4 of — total replies</span>
-              <span style={{ color: 'var(--text-2)', fontFamily: 'var(--mono)' }}>All data is yours. Export any time.</span>
+              <span style={{ fontFamily: 'var(--mono)', fontSize: 11 }}>Showing 4 of — total replies</span>
+              <span style={{ color: 'var(--text-2)', fontFamily: 'var(--mono)', fontSize: 11 }}>All data is yours. Export any time.</span>
             </div>
           </div>
         </div>
 
-        <div className="reveal" style={{ marginTop: 32, display: 'flex', alignItems: 'center', gap: 24 }}>
+        <div className="reveal" style={{ marginTop: 28, display: 'flex', alignItems: 'center', gap: 24 }}>
           <Link to="/dashboard" className="btn btn-ghost">
             See the full dashboard →
           </Link>
           <span className="mono" style={{ fontSize: 11, color: 'var(--text-2)' }}>
-            All — placeholders become your numbers on day 15
+            All — placeholders become your real numbers on day 15
           </span>
         </div>
       </div>

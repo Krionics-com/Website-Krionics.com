@@ -35,7 +35,7 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section style={{ paddingTop: 140, background: 'var(--bg-elev)', marginTop: 120, borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', paddingBottom: 120 }}>
+    <section style={{ paddingTop: 96, background: 'var(--bg-elev)', marginTop: 0, borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', paddingBottom: 96 }}>
       <div className="container">
         <div style={{ marginBottom: 64 }}>
           <span className="eyebrow-2 reveal">06 / How it works</span>

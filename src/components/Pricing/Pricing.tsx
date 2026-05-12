@@ -42,14 +42,20 @@ export function Pricing() {
   return (
     <section id="pricing" style={{ paddingTop: 140 }}>
       <div className="container">
-        <div style={{ marginBottom: 56 }}>
-          <span className="eyebrow-2 reveal">07 / Pricing</span>
+        <div style={{ marginBottom: 40 }}>
+          <span className="eyebrow-2 reveal">06 / Pricing</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 16px', maxWidth: '22ch', letterSpacing: '-0.02em' }}>
             Three tiers. Published. <em style={{ fontStyle: 'italic' }}>No surprises.</em>
           </h2>
           <p className="muted reveal" style={{ margin: 0, fontSize: 17, maxWidth: '54ch' }}>
             All plans include infrastructure, tools, data, and operating time. There is no "minimum spend" footnote.
           </p>
+        </div>
+
+        <div className="reveal" style={{ marginBottom: 28, padding: '14px 20px', background: 'var(--bg-elev)', border: '1px solid var(--border)', borderRadius: 6, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <span style={{ fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '0.12em', color: 'var(--text-2)', textTransform: 'uppercase' }}>These tiers are for</span>
+          <span style={{ fontFamily: 'var(--sans)', fontSize: 14, fontWeight: 600, color: 'var(--text)' }}>Service A — AI Cold Outbound System</span>
+          <span style={{ marginLeft: 'auto', fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--text-2)', letterSpacing: '0.04em' }}>Service B (AI Voice Agent): $7,500 setup + $2,000/mo — ask on the call</span>
         </div>
 
         <div className={`reveal ${styles.grid}`}>

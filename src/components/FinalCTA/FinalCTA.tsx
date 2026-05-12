@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export function FinalCTA() {
   return (
-    <section style={{ background: 'var(--ink)', color: 'var(--cream-2)', padding: '140px 0', borderTop: '1px solid rgba(245,241,232,0.12)' }}>
+    <section style={{ background: 'var(--ink)', color: 'var(--cream-2)', padding: '100px 0', borderTop: '1px solid rgba(245,241,232,0.12)' }}>
       <div className="container" style={{ maxWidth: 720, textAlign: 'center' }}>
         <span className="reveal" style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.16em', color: 'rgba(245,241,232,0.4)', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
           10 / The decision

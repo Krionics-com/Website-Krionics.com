@@ -1,7 +1,13 @@
 .screens {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .screens {
+    grid-template-columns: 1fr;
+  }
 }
 
 .screen {
@@ -31,6 +37,7 @@
   border-radius: 50%;
   background: var(--border-strong);
   display: block;
+  flex-shrink: 0;
 }
 
 .screenTitle {

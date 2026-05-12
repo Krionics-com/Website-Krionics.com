@@ -9,6 +9,8 @@ const WONT = [
   "Disappear after onboarding",
   "Call it 'personalized' when it's a mail merge",
   "Blame deliverability when the real problem is the offer",
+  "Promise a meeting number we can't stand behind",
+  "Keep you in the dark when something breaks",
 ]
 
 const WILL = [
@@ -20,11 +22,13 @@ const WILL = [
   "Hand you everything if you leave — the data, the domains, the system",
   "Tell you when outbound isn't the right solution for your stage",
   "Keep early-client rates for the first clients who take a chance on us",
+  "Diagnose what broke before we build — and tell you if it's not a system problem",
+  "Show you a live system, not a slide deck, before you commit",
 ]
 
 export function Manifesto() {
   return (
-    <section style={{ paddingTop: 140, paddingBottom: 120, background: 'var(--ink)', marginTop: 120, borderTop: '1px solid rgba(245,241,232,0.12)' }}>
+    <section style={{ paddingTop: 96, paddingBottom: 96, background: 'var(--ink)', marginTop: 0, borderTop: '1px solid rgba(245,241,232,0.12)' }}>
       <div className="container">
         <div style={{ marginBottom: 64 }}>
           <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.16em', color: 'rgba(245,241,232,0.5)', textTransform: 'uppercase' }} className="reveal">08 / How we operate</span>

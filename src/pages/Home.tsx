@@ -2,14 +2,13 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { Hero } from '../components/Hero/Hero'
 import { Problem } from '../components/Problem/Problem'
 import { Machine } from '../components/Machine/Machine'
+import { Services } from '../components/Services/Services'
+import { HowItWorks } from '../components/HowItWorks/HowItWorks'
 import { MathComparison } from '../components/MathComparison/MathComparison'
 import { ROICalculator } from '../components/ROICalculator/ROICalculator'
 import { DashboardEmbed } from '../components/DashboardEmbed/DashboardEmbed'
-import { Services } from '../components/Services/Services'
-import { HowItWorks } from '../components/HowItWorks/HowItWorks'
 import { Pricing } from '../components/Pricing/Pricing'
 import { Manifesto } from '../components/Manifesto/Manifesto'
-import { Founders } from '../components/Founders/Founders'
 import { FAQ } from '../components/FAQ/FAQ'
 import { FinalCTA } from '../components/FinalCTA/FinalCTA'
 import { Footer } from '../components/Footer/Footer'
@@ -21,14 +20,13 @@ export function Home() {
       <Hero />
       <Problem />
       <Machine />
+      <Services />
+      <HowItWorks />
       <MathComparison />
       <ROICalculator />
       <DashboardEmbed />
-      <Services />
-      <HowItWorks />
       <Pricing />
       <Manifesto />
-      <Founders />
       <FAQ />
       <FinalCTA />
       <Footer />
