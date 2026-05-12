@@ -1,0 +1,10 @@
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 960px) {
+  .grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .principles { grid-template-columns: 1fr !important; }
+  .principles > div { border-right: none !important; }
+}

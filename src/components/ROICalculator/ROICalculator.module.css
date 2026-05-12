@@ -1,0 +1,21 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr);
+  gap: 80px;
+  align-items: start;
+}
+
+.lossStat {
+  margin-top: 40px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  background: var(--bg-elev);
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}

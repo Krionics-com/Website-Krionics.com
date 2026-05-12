@@ -1,0 +1,19 @@
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.hamburger span {
+  width: 16px;
+  height: 1px;
+  background: currentColor;
+}
+
+.mobileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}

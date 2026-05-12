@@ -1,0 +1,49 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+}
+
+.stepLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.stepMarker {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--cream-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.stepLine {
+  flex: 1;
+  width: 1px;
+  background: var(--border-strong);
+  margin: 8px 0;
+  min-height: 32px;
+}
+
+.stepContent {
+  padding-bottom: 48px;
+}
+
+.step:last-child .stepContent {
+  padding-bottom: 0;
+}
