@@ -15,7 +15,7 @@ export function FinalCTA() {
         </p>
         <div className="reveal" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
           <Link to="/book" className="btn btn-primary" style={{ fontSize: 16, padding: '16px 36px' }}>
-            Book the 15-minute call <span className="arrow">→</span>
+            Book a call <span className="arrow">→</span>
           </Link>
           <span style={{ fontFamily: 'var(--mono)', fontSize: 12, color: 'rgba(245,241,232,0.4)', letterSpacing: '0.06em' }}>
             No pitch deck. No sales process. Just the call.

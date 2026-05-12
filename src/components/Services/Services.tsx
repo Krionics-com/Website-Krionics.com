@@ -68,8 +68,8 @@ export function Services() {
             headline="Cold outbound + LinkedIn + data ops"
             body="Everything in the cold outbound system, plus LinkedIn outreach, custom data enrichment pipelines, ICP refinement loops, and a unified pipeline dashboard. For companies ready to make outbound a serious channel."
             tools={['Apollo', 'Clay', 'Instantly', 'LinkedIn Sales Nav', 'Phantombuster', 'ZoomInfo']}
-            setup="$7,500"
-            monthly="$2,000"
+            setup="$5,000"
+            monthly="$4,500"
           />
         </div>
 

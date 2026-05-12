@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom'
+import styles from './Footer.module.css'
 
 export function Footer() {
   return (
     <footer style={{ background: 'var(--ink)', color: 'rgba(245,241,232,0.5)', borderTop: '1px solid rgba(245,241,232,0.08)', padding: '60px 0 40px' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', gap: 48, marginBottom: 48, paddingBottom: 48, borderBottom: '1px solid rgba(245,241,232,0.08)' }}>
+        <div className={styles.grid}>
           <div>
             <div className="serif" style={{ fontSize: 22, color: 'var(--cream-2)', letterSpacing: '-0.01em', marginBottom: 16 }}>Krionics</div>
             <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, maxWidth: '26ch' }}>
               B2B pipeline systems. We build the outbound infrastructure and run it — so you get meetings, not excuses.
             </p>
             <p style={{ margin: '16px 0 0', fontSize: 12, fontFamily: 'var(--mono)', letterSpacing: '0.06em' }}>
-              bhendarkarai@gmail.com
+              hello@krionics.com
             </p>
           </div>
 
@@ -20,7 +21,7 @@ export function Footer() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
               {['Cold outbound system', 'Full pipeline system', 'Infrastructure setup', 'Deliverability management'].map((item) => (
                 <li key={item}>
-                  <Link to="/book" style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
+                  <Link to="/#services" style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
                     onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,241,232,0.5)')}>
                     {item}

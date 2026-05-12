@@ -22,6 +22,13 @@
   --ink: #0E120F;
   --cream-2: #F5F1E8;
 
+  /* Dark-section text opacity helpers (used on --ink backgrounds) */
+  --dark-text: rgba(245, 241, 232, 1);
+  --dark-muted: rgba(245, 241, 232, 0.7);
+  --dark-subtle: rgba(245, 241, 232, 0.5);
+  --dark-faint: rgba(245, 241, 232, 0.35);
+  --dark-border: rgba(245, 241, 232, 0.1);
+
   /* Typography */
   --serif: "Instrument Serif", "Times New Roman", serif;
   --sans: "Geist", -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
@@ -30,6 +37,7 @@
   /* Layout */
   --container: 1100px;
   --container-wide: 1240px;
+  --gutter: 24px;
   --radius-sm: 4px;
   --radius: 8px;
   --section-y: 140px;

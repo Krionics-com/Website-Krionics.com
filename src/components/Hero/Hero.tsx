@@ -48,7 +48,7 @@ export function Hero() {
             </p>
             <div className={`rise rise-d4 ${styles.ctaRow}`}>
               <Link to="/book" className="btn btn-primary" style={{ padding: '16px 26px', fontSize: 16 }}>
-                Book a 15-minute call <span className="arrow">→</span>
+                Book a call <span className="arrow">→</span>
               </Link>
               <a className="btn btn-ghost" href="#roi" style={{ padding: '16px 22px', fontSize: 16 }}>
                 See the math

@@ -9,13 +9,21 @@ interface FAQItemProps {
 
 function FAQItem({ q, a }: FAQItemProps) {
   const [open, setOpen] = useState(false)
+  const id = q.replace(/\s+/g, '-').toLowerCase().slice(0, 32)
   return (
     <div className={styles.item}>
-      <button className={styles.question} onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+      <button
+        className={styles.question}
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-controls={`faq-${id}`}
+      >
         <span>{q}</span>
-        <span className={styles.icon}>{open ? '−' : '+'}</span>
+        <span className={styles.icon} aria-hidden="true">{open ? '−' : '+'}</span>
       </button>
-      {open && <div className={styles.answer}>{a}</div>}
+      <div id={`faq-${id}`} role="region" hidden={!open} className={styles.answer}>
+        {a}
+      </div>
     </div>
   )
 }
@@ -81,7 +89,7 @@ export function FAQ() {
             <p className="muted" style={{ margin: '6px 0 0', fontSize: 14 }}>Bring it to the call. We won't pitch you — we'll answer it.</p>
           </div>
           <Link to="/book" className="btn btn-primary">
-            Book 15 minutes <span className="arrow">→</span>
+            Book a call <span className="arrow">→</span>
           </Link>
         </div>
       </div>

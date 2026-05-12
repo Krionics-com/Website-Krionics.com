@@ -116,7 +116,7 @@ export function ROICalculator() {
                 <p style={{ margin: '6px 0 0', fontSize: 14, color: 'var(--cream-2)', maxWidth: '44ch' }}>{honestAnswer}</p>
               </div>
               <Link to="/book" className="btn btn-primary" style={{ flexShrink: 0 }}>
-                Book the call <span className="arrow">→</span>
+                Book a call <span className="arrow">→</span>
               </Link>
             </div>
 

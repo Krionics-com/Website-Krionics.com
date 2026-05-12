@@ -21,7 +21,7 @@ export function DashboardPage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
       {/* Dashboard header */}
       <div style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg-elev)' }}>
-        <div className="container" style={{ padding: '0 var(--gutter)' }}>
+        <div className="container" style={{ padding: '0 32px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
               <Link to="/" style={{ fontFamily: 'var(--serif)', fontSize: 18, color: 'var(--text)', textDecoration: 'none', letterSpacing: '-0.01em' }}>
@@ -68,7 +68,7 @@ export function DashboardPage() {
       </div>
 
       {/* Tab content */}
-      <div className="container" style={{ padding: '0 var(--gutter)' }}>
+      <div className="container" style={{ padding: '0 32px' }}>
         {active === 'overview' && <Overview />}
         {active === 'meetings' && <MeetingsTab />}
         {active === 'replies' && <RepliesTab />}

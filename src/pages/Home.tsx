@@ -9,6 +9,7 @@ import { Services } from '../components/Services/Services'
 import { HowItWorks } from '../components/HowItWorks/HowItWorks'
 import { Pricing } from '../components/Pricing/Pricing'
 import { Manifesto } from '../components/Manifesto/Manifesto'
+import { Founders } from '../components/Founders/Founders'
 import { FAQ } from '../components/FAQ/FAQ'
 import { FinalCTA } from '../components/FinalCTA/FinalCTA'
 import { Footer } from '../components/Footer/Footer'
@@ -27,6 +28,7 @@ export function Home() {
       <HowItWorks />
       <Pricing />
       <Manifesto />
+      <Founders />
       <FAQ />
       <FinalCTA />
       <Footer />

@@ -24,7 +24,7 @@ export function Problem() {
       <div className="container">
         <div style={{ borderTop: '1px solid var(--border)', paddingTop: 80 }}>
           <div style={{ marginBottom: 56 }}>
-            <span className="eyebrow-2 reveal">The real cost of doing nothing</span>
+            <span className="eyebrow-2 reveal">00 / The problem</span>
             <h2 className={`h1 reveal ${styles.headline}`} style={{ margin: '20px 0 0' }}>
               Outbound isn't broken. Your system is.
             </h2>
