@@ -197,7 +197,7 @@ function TypingDots() {
   return (
     <div className={styles.msgBot}>
       <div className={styles.avatar}>K</div>
-      <div className={`${styles.bubble} ${styles.bubbleBot}`}>
+      <div className={styles.bubbleBot}>
         <div className={styles.typingDots}>
           <span /><span /><span />
         </div>
@@ -577,9 +577,32 @@ export function ChatWidget() {
 
   return (
     <>
+      {/* SVG filter for glass refraction on the floating button */}
+      <svg
+        aria-hidden="true"
+        style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}
+      >
+        <defs>
+          <filter id="kr-glass-refract" x="-5%" y="-5%" width="110%" height="110%" colorInterpolationFilters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.055 0.028" numOctaves="2" seed="4" result="noise" />
+            <feGaussianBlur in="noise" stdDeviation="0.8" result="smoothNoise" />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="smoothNoise"
+              scale="3.2"
+              xChannelSelector="R"
+              yChannelSelector="G"
+              result="displaced"
+            />
+            <feComposite in="displaced" in2="SourceGraphic" operator="atop" />
+          </filter>
+        </defs>
+      </svg>
+
       {/* ── Floating bubble ─────────────────────────────────── */}
       <button
         className={styles.bubble}
+        style={{ filter: 'url(#kr-glass-refract)' }}
         onClick={() => dispatch({ type: state.isOpen ? 'CLOSE' : 'OPEN' })}
         aria-label={state.isOpen ? 'Close chat' : 'Open chat'}
       >
@@ -603,10 +626,17 @@ export function ChatWidget() {
           {/* Header */}
           <div className={styles.header}>
             <div className={styles.headerLeft}>
-              <span className={styles.statusDot} />
-              <div>
-                <div className={styles.headerTitle}>Krionics AI</div>
-                <div className={styles.headerSub}>Typically replies in seconds</div>
+              <div className={styles.headerAvatar}>
+                <span className={styles.headerAvatarLetter}>K</span>
+              </div>
+              <div className={styles.headerText}>
+                <div className={styles.headerTitle}>
+                  Krionics<span className={styles.headerTitleDot}>.</span>
+                </div>
+                <div className={styles.headerStatus}>
+                  <span className={styles.statusDot} />
+                  <span className={styles.headerSub}>Typically replies in seconds</span>
+                </div>
               </div>
             </div>
             <button
