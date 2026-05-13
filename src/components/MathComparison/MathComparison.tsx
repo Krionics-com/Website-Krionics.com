@@ -92,6 +92,12 @@ export function MathComparison() {
                 </li>
               ))}
             </ul>
+
+            <div className={styles.savings}>
+              <span className={styles.savingsLabel}>Annual savings vs a full-time SDR</span>
+              <span className={styles.savingsValue}>$72,000</span>
+              <span className={styles.savingsNote}>($8,500 − $2,500) × 12 months</span>
+            </div>
           </div>
         </div>
 

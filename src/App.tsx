@@ -4,6 +4,7 @@ import { Nav } from './components/Nav/Nav'
 import { Home } from './pages/Home'
 import { DashboardPage } from './pages/DashboardPage'
 import { BookPage } from './pages/BookPage'
+import { ChatWidget } from './components/ChatWidget/ChatWidget'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -47,6 +48,7 @@ export function App() {
   return (
     <BrowserRouter>
       <AppShell />
+      <ChatWidget />
     </BrowserRouter>
   )
 }

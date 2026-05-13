@@ -5,21 +5,26 @@ interface PriceTierProps {
   name: string
   price: string
   sub: string
+  bestFor: string
   description: string
   includes: string[]
   recommended?: boolean
 }
 
-function PriceTier({ name, price, sub, description, includes, recommended = false }: PriceTierProps) {
+function PriceTier({ name, price, sub, bestFor, description, includes, recommended = false }: PriceTierProps) {
   return (
     <div className={`${styles.tier} ${recommended ? styles.recommended : ''}`}>
       {recommended && <span className={styles.badge}>RECOMMENDED</span>}
       <span className="mono" style={{ fontSize: 11, letterSpacing: '0.16em', color: recommended ? 'rgba(245,241,232,0.6)' : 'var(--text-2)' }}>{name}</span>
-      <div className="serif" style={{ fontSize: 52, lineHeight: 1, letterSpacing: '-0.03em', margin: '16px 0 4px', color: recommended ? 'var(--primary)' : 'var(--text)' }}>
+      <div className="serif" style={{ fontSize: 48, lineHeight: 1, letterSpacing: '-0.03em', margin: '14px 0 4px', color: recommended ? 'var(--primary)' : 'var(--text)' }}>
         {price}
       </div>
       <span className="mono" style={{ fontSize: 12, color: recommended ? 'rgba(245,241,232,0.6)' : 'var(--text-2)', letterSpacing: '0.06em' }}>{sub}</span>
-      <p style={{ margin: '20px 0', fontSize: 14, lineHeight: 1.6, color: recommended ? 'rgba(245,241,232,0.8)' : 'var(--text-2)' }}>{description}</p>
+      <div style={{ margin: '16px 0 0', padding: '12px 14px', background: recommended ? 'rgba(245,241,232,0.07)' : 'var(--bg-elev)', borderRadius: 4 }}>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: recommended ? 'rgba(245,241,232,0.5)' : 'var(--text-2)', display: 'block', marginBottom: 4 }}>Best for</span>
+        <span style={{ fontSize: 13, lineHeight: 1.45, color: recommended ? 'rgba(245,241,232,0.85)' : 'var(--text)' }}>{bestFor}</span>
+      </div>
+      <p style={{ margin: '16px 0', fontSize: 13.5, lineHeight: 1.6, color: recommended ? 'rgba(245,241,232,0.7)' : 'var(--text-2)' }}>{description}</p>
       <hr style={{ height: 1, background: recommended ? 'rgba(245,241,232,0.18)' : 'var(--border)', border: 0, margin: '20px 0' }} />
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
         {includes.map((item) => (
@@ -52,10 +57,16 @@ export function Pricing() {
           </p>
         </div>
 
-        <div className="reveal" style={{ marginBottom: 28, padding: '14px 20px', background: 'var(--bg-elev)', border: '1px solid var(--border)', borderRadius: 6, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '0.12em', color: 'var(--text-2)', textTransform: 'uppercase' }}>These tiers are for</span>
-          <span style={{ fontFamily: 'var(--sans)', fontSize: 14, fontWeight: 600, color: 'var(--text)' }}>Service A — AI Cold Outbound System</span>
-          <span style={{ marginLeft: 'auto', fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--text-2)', letterSpacing: '0.04em' }}>Service B (AI Voice Agent): $7,500 setup + $2,000/mo — ask on the call</span>
+        <div className="reveal" style={{ marginBottom: 28, display: 'grid', gridTemplateColumns: '1fr auto', gap: 12, alignItems: 'stretch' }}>
+          <div style={{ padding: '14px 20px', background: 'var(--bg-elev)', border: '1px solid var(--border)', borderRadius: 6, display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '0.12em', color: 'var(--text-2)', textTransform: 'uppercase', flexShrink: 0 }}>Viewing</span>
+            <span style={{ fontFamily: 'var(--sans)', fontSize: 14, fontWeight: 600, color: 'var(--text)' }}>Service A — AI Cold Outbound System</span>
+          </div>
+          <div style={{ padding: '14px 20px', border: '1px solid var(--border)', borderRadius: 6, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3 }}>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '0.12em', color: 'var(--text-2)', textTransform: 'uppercase' }}>Also available</span>
+            <span style={{ fontFamily: 'var(--sans)', fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>Service B — AI Voice Agent</span>
+            <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--text-2)' }}>$7,500 setup · $2,000/mo</span>
+          </div>
         </div>
 
         <div className={`reveal ${styles.grid}`}>
@@ -63,7 +74,8 @@ export function Pricing() {
             name="GROWTH"
             price="$2,500"
             sub="/mo + $2,000 setup"
-            description="Cold email outbound system. Ideal for companies with a proven offer who need a reliable, operated pipeline channel without hiring."
+            bestFor="Teams of 1–15 with a proven offer and zero cold outbound today. No SDR, no existing sequences."
+            description="Cold email outbound system. Ideal for companies who need a reliable, operated pipeline channel without hiring."
             includes={[
               'Sending infrastructure (domains, inboxes)',
               'ICP list build + verification (monthly)',
@@ -78,6 +90,7 @@ export function Pricing() {
             name="SYSTEMATIZE"
             price="$4,500"
             sub="/mo + $5,000 setup"
+            bestFor="Growing sales teams ready to go multi-channel. $1M+ ARR, dedicated sales rep, wants unified reporting."
             description="Cold email + LinkedIn outbound. For companies ready to build multi-channel pipeline with unified data and a real dashboard."
             recommended
             includes={[
@@ -94,6 +107,7 @@ export function Pricing() {
             name="OUTPACE"
             price="$7,500"
             sub="/mo + $7,500 setup"
+            bestFor="Series A+ or $5M+ ARR. Pipeline is a strategic priority — intent data, custom triggers, aggressive volume."
             description="Full pipeline system with intent data, custom signals, and aggressive multi-channel. For companies where pipeline is a strategic priority."
             includes={[
               'Everything in Systematize',
