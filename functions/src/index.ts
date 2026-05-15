@@ -1,12 +1,29 @@
+// Final SEO and IAM update
+
 import * as admin from 'firebase-admin'
 import { onRequest } from 'firebase-functions/v2/https'
 import { defineSecret } from 'firebase-functions/params'
 import Groq from 'groq-sdk'
+import type { Request, Response } from 'express'
 
 admin.initializeApp()
 const db = admin.firestore()
 
 const groqApiKey = defineSecret('GROQ_API_KEY')
+const ALLOWED_ORIGINS = new Set(['https://krionics.com','https://www.krionics.com','https://krionics-39060.firebaseapp.com','https://krionics-39060.web.app'])
+
+const applyCors = (req: Request, res: Response) => {
+  const origin = req.get('origin')
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+    res.setHeader('Vary', 'Origin')
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res.setHeader('Access-Control-Max-Age', '3600')
+}
+type ChatRole = 'system' | 'user' | 'assistant'
+type ChatMessage = { role: ChatRole; content: string }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // System prompt — everything the LLM needs to know about Krionics
@@ -170,13 +187,14 @@ The booking UI will open automatically — you don't need to explain it.
 
 export const chat = onRequest(
   {
-    cors: true,
+    cors: false,
     secrets: [groqApiKey],
     timeoutSeconds: 60,
     region: 'us-central1',
     memory: '256MiB',
   },
-  async (req, res) => {
+  async (req: Request, res: Response) => {
+    applyCors(req, res)
     if (req.method === 'OPTIONS') {
       res.status(204).end()
       return
@@ -196,9 +214,17 @@ export const chat = onRequest(
     }
 
     // Sanitise: only keep role + content, cap at last 20 turns
-    const history = messages
+    const history: ChatMessage[] = messages
       .slice(-20)
-      .map(({ role, content }) => ({ role, content: content.slice(0, 2000) }))
+      .map(({ role, content }) => ({
+        role: role === 'assistant' ? 'assistant' : 'user',
+        content: content.slice(0, 2000),
+      }))
+
+    const requestMessages: ChatMessage[] = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...history,
+    ]
 
     const groq = new Groq({ apiKey: groqApiKey.value() })
 
@@ -211,7 +237,7 @@ export const chat = onRequest(
     try {
       const stream = await groq.chat.completions.create({
         model: 'llama-3.3-70b-versatile',
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
+        messages: requestMessages,
         stream: true,
         max_tokens: 450,
         temperature: 0.65,
@@ -240,10 +266,15 @@ export const chat = onRequest(
 
 export const saveLead = onRequest(
   {
-    cors: true,
+    cors: false,
     region: 'us-central1',
   },
-  async (req, res) => {
+  async (req: Request, res: Response) => {
+    applyCors(req, res)
+    if (req.method === 'OPTIONS') {
+      res.status(204).end()
+      return
+    }
     if (req.method !== 'POST') {
       res.status(405).json({ error: 'Method not allowed' })
       return

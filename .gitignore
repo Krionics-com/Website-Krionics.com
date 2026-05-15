@@ -3,3 +3,29 @@ dist/
 .claude/
 *.log
 .DS_Store
+
+# Environment / secrets
+.env
+.env.*
+.env.local
+runtimeconfig.json
+
+# Firebase / Functions build artifacts
+.firebase/
+functions/lib/
+functions/node_modules/
+
+# IDEs and OS
+.vscode/
+.idea/
+Thumbs.db
+
+# Misc caches
+.cache/
+.parcel-cache/
+coverage/
+.nyc_output/
+
+# Vite / Next / Static site
+.vercel/
+.next/

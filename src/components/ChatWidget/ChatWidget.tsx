@@ -92,7 +92,15 @@ const WELCOME: Message = {
     "Hi — I'm the Krionics AI.\n\nI can answer anything about our pipeline systems, pricing, or process. Or if you're ready, I can help you book a 15-minute call with the team right here.\n\nWhat brings you here today?",
 }
 
-const API_BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? ''
+const CHAT_API_URL =
+  (import.meta.env.VITE_CHAT_API_URL as string | undefined) ??
+  'https://chat-eti2smowsa-uc.a.run.app'
+
+const LEAD_ENDPOINT =
+  (import.meta.env.VITE_LEAD_API_URL as string | undefined) ??
+  ((import.meta.env.VITE_API_URL as string | undefined)
+    ? `${import.meta.env.VITE_API_URL as string}/api/lead`
+    : '/api/lead')
 
 const uid = () => Math.random().toString(36).slice(2, 9)
 
@@ -459,9 +467,12 @@ export function ChatWidget() {
       })
 
       try {
-        const res = await fetch(`${API_BASE}/api/chat`, {
+        const res = await fetch(CHAT_API_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'text/event-stream',
+          },
           body: JSON.stringify({ messages: history }),
         })
 
@@ -555,9 +566,12 @@ export function ChatWidget() {
   const handleSubmitBooking = async () => {
     dispatch({ type: 'SUBMIT_BOOKING' })
     try {
-      await fetch(`${API_BASE}/api/lead`, {
+      await fetch(LEAD_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
         body: JSON.stringify({
           ...state.bookingData,
           sessionId: uid(),
