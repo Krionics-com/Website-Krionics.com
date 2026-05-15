@@ -39,6 +39,12 @@ export function Footer() {
                 { label: 'Pricing', href: '/#pricing' },
                 { label: 'FAQ', href: '/#faq' },
                 { label: 'Dashboard', href: '/dashboard' },
+                { label: 'About', href: '/about' },
+                { label: 'Careers', href: '/careers' },
+                { label: 'Contact', href: '/contact' },
+                { label: 'Blog', href: '/blog' },
+                { label: 'Privacy Policy', href: '/privacy-policy' },
+                { label: 'Terms', href: '/terms' },
               ].map((item) => (
                 <li key={item.label}>
                   <Link to={item.href} style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}

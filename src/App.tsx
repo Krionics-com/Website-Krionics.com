@@ -4,6 +4,13 @@ import { Nav } from './components/Nav/Nav'
 import { Home } from './pages/Home'
 import { DashboardPage } from './pages/DashboardPage'
 import { BookPage } from './pages/BookPage'
+import { AboutPage } from './pages/AboutPage'
+import { ContactPage } from './pages/ContactPage'
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage'
+import { TermsPage } from './pages/TermsPage'
+import { CareersPage } from './pages/CareersPage'
+import { BlogPage } from './pages/BlogPage'
+import { BlogPostPage } from './pages/BlogPostPage'
 import { ChatWidget } from './components/ChatWidget/ChatWidget'
 
 function ScrollToTop() {
@@ -36,6 +43,13 @@ function AppShell() {
       {showNav && <Nav />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/careers" element={<CareersPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/book" element={<BookPage />} />
         <Route path="*" element={<NotFound />} />
