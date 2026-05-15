@@ -6,14 +6,7 @@ import { BLOG_POSTS, getPostBySlug, BlogPost } from '../data/blogPosts'
 import { BRAND } from '../lib/brand'
 import layout from '../components/PageLayout/PageLayout.module.css'
 import styles from './BlogPostPage.module.css'
-
-function renderMarkdownishLine(line: string) {
-  const trimmed = line.trim()
-  if (trimmed.startsWith('**') && trimmed.endsWith('**') && trimmed.length > 4) {
-    return <p className={styles.paragraph}>{trimmed.slice(2, -2)}</p>
-  }
-  return <p className={styles.paragraph}>{line}</p>
-}
+import { renderBlogLine } from '../lib/renderBlogLine'
 
 function BlogPostingJsonLd({ post }: { post: BlogPost }) {
   const url = `${BRAND.url}/blog/${post.slug}`
@@ -118,9 +111,7 @@ export function BlogPostPage() {
           </div>
 
           <article className={`${styles.article} reveal`}>
-            {post.content.map((line, i) => (
-              <div key={i}>{renderMarkdownishLine(line)}</div>
-            ))}
+            {post.content.map((line, i) => renderBlogLine(line, i))}
 
             <div className={styles.ctaInline}>
               <h2 className="h2" style={{ margin: '0 0 10px', letterSpacing: '-0.02em' }}>

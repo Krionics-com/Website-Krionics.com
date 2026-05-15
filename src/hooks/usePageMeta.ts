@@ -56,8 +56,15 @@ export function usePageMeta({ title, description, path, noindex }: PageMetaOptio
     }
 
     return () => {
+      const home = BRAND.url
       document.title = `${BRAND.name} — ${BRAND.tagline}`
       setMeta('name', 'description', BRAND.description)
+      setMeta('property', 'og:title', `${BRAND.name} — ${BRAND.tagline}`)
+      setMeta('property', 'og:description', BRAND.description)
+      setMeta('property', 'og:url', home)
+      setMeta('name', 'twitter:title', `${BRAND.name} — ${BRAND.tagline}`)
+      setMeta('name', 'twitter:description', BRAND.description)
+      setCanonical(home)
     }
   }, [title, description, path, noindex])
 }

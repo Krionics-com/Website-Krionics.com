@@ -1,4 +1,9 @@
+.section {
+  padding: 72px 0;
+}
+
 .sectionAlt {
+  padding: 72px 0;
   background: var(--bg-elev);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -67,10 +72,16 @@
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(245, 241, 232, 0.85);
-  background: rgba(14, 18, 15, 0.5);
-  border: 1px solid rgba(14, 18, 15, 0.18);
+  color: var(--text-2);
+  background: var(--bg);
+  border: 1px solid var(--border);
   padding: 10px 14px;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
 }
 
 .detailGrid {
@@ -101,8 +112,19 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 22px;
-  padding-top: 22px;
-  border-top: 1px solid var(--border);
+  padding: 24px;
+  margin-top: 8px;
+  background: var(--ink);
+  border: 1px solid var(--dark-border);
+}
+
+.applyBand p,
+.applyBand a {
+  color: var(--dark-muted);
+}
+
+.applyBand a:hover {
+  color: var(--cream-2);
 }
 
 .applyLeft {

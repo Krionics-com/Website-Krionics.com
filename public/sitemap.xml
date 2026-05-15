@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://krionics.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://krionics.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krionics.com/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krionics.com/careers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://krionics.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krionics.com/book</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://krionics.com/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://krionics.com/terms</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://krionics.com/blog/b2b-cold-outbound-system-14-days</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://krionics.com/blog/cold-email-deliverability-what-matters</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://krionics.com/blog/outbound-agency-vs-in-house-sdr</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://krionics.com/blog/ai-voice-agents-inbound-qualification</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://krionics.com/blog/linkedin-outbound-system-playbook</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://krionics.com/blog/roi-calculator-for-cold-outbound</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>

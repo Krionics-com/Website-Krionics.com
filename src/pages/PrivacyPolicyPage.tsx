@@ -26,7 +26,7 @@ export function PrivacyPolicyPage() {
           <article className={`${layout.prose} reveal`}>
             <p>
               This Privacy Policy describes how {BRAND.name} (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects,
-              uses, and shares information when you visit {BRAND.url}, use our website chat widget, book a discovery call,
+              uses, and shares information when you visit {BRAND.url}, use our website AI chat widget (which may process your messages to answer questions), book a discovery call,
               or engage our B2B pipeline services.
             </p>
 

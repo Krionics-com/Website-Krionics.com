@@ -199,12 +199,12 @@ export function CareersPage() {
 
               <div className={styles.applyBand}>
                 <div className={styles.applyLeft}>
-                  <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,241,232,0.5)' }}>
+                  <span className="mono" style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--dark-subtle)' }}>
                     Apply
                   </span>
-                  <p style={{ margin: '10px 0 0', color: 'rgba(245,241,232,0.85)', lineHeight: 1.7, fontSize: 15, maxWidth: '60ch' }}>
+                  <p style={{ margin: '10px 0 0', lineHeight: 1.7, fontSize: 15, maxWidth: '60ch' }}>
                     Email your resume and a short note about what you built (and what you improved) to{' '}
-                    <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--cream-2)', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                    <a href={`mailto:${BRAND.email}`} style={{ textDecoration: 'underline', textUnderlineOffset: 3 }}>
                       {BRAND.email}
                     </a>
                     . Include the role title in the subject line.
@@ -214,7 +214,7 @@ export function CareersPage() {
                   <a href={`mailto:${BRAND.email}?subject=${encodeURIComponent(`Krionics — ${selected.title} (Resume)`)}`} className="btn btn-primary">
                     Send email <span className="arrow">→</span>
                   </a>
-                  <p style={{ margin: '10px 0 0', color: 'rgba(245,241,232,0.6)', fontSize: 13, lineHeight: 1.6 }}>
+                  <p style={{ margin: '10px 0 0', color: 'var(--dark-subtle)', fontSize: 13, lineHeight: 1.6 }}>
                     We review applications weekly.
                   </p>
                 </div>
