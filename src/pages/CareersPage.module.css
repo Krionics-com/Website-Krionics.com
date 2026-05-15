@@ -1,0 +1,160 @@
+.section {
+  padding: 72px 0;
+}
+
+.sectionAlt {
+  padding: 72px 0;
+  background: var(--bg-elev);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.intro {
+  margin-bottom: 44px;
+  max-width: 860px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+}
+
+.roleCard {
+  text-align: left;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  padding: 22px 20px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.roleCard:hover {
+  border-color: var(--border-strong);
+}
+
+.roleCardActive {
+  border-color: var(--primary);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.9;
+}
+
+.detail {
+  padding: 36px 32px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 26px;
+}
+
+.closeBtn {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 34px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.check {
+  color: var(--primary);
+  font-family: var(--mono);
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.applyBand {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 24px;
+  margin-top: 8px;
+  background: var(--ink);
+  border: 1px solid var(--dark-border);
+}
+
+.applyBand p,
+.applyBand a {
+  color: var(--dark-muted);
+}
+
+.applyBand a:hover {
+  color: var(--cream-2);
+}
+
+.applyLeft {
+  flex: 1;
+}
+
+.applyRight {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .applyBand {
+    flex-direction: column;
+  }
+}
+

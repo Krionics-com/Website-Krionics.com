@@ -21,6 +21,9 @@ export function Nav() {
             <a className="nav-link" href={anchor('services')}>Services</a>
             <a className="nav-link" href={anchor('pricing')}>Pricing</a>
             <a className="nav-link" href={anchor('faq')}>FAQ</a>
+            <Link to="/about" className="nav-link">About</Link>
+            <Link to="/blog" className="nav-link">Blog</Link>
+            <Link to="/contact" className="nav-link">Contact</Link>
             <Link to="/dashboard" className="nav-link">Dashboard</Link>
             <Link to="/book" className="btn btn-primary nav-cta" style={{ marginLeft: 8 }}>
               Book a call <span className="arrow">→</span>
@@ -48,6 +51,9 @@ export function Nav() {
           <a href={anchor('services')} onClick={() => setOpen(false)}>Services</a>
           <a href={anchor('pricing')} onClick={() => setOpen(false)}>Pricing</a>
           <a href={anchor('faq')} onClick={() => setOpen(false)}>FAQ</a>
+          <Link to="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link to="/blog" onClick={() => setOpen(false)}>Blog</Link>
+          <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
           <Link to="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
           <Link to="/book" style={{ color: 'var(--primary)' }} onClick={() => setOpen(false)}>Book a call →</Link>
         </div>

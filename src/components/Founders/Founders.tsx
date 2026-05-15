@@ -1,3 +1,4 @@
+import { BRAND } from '../../lib/brand'
 import styles from './Founders.module.css'
 
 interface FounderCardProps {
@@ -83,8 +84,8 @@ export function Founders() {
         <div className="reveal" style={{ marginTop: 40, padding: '20px 28px', background: 'var(--bg-elev)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
           <span className="mono" style={{ fontSize: 11, color: 'var(--text-2)', letterSpacing: '0.08em' }}>FOUNDED 2024 · BENGALURU, INDIA · REMOTE-FIRST DELIVERY</span>
           <span style={{ flex: 1 }} />
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ fontSize: 13, padding: '8px 16px' }}>
-            Find us on LinkedIn →
+          <a href={`mailto:${BRAND.email}?subject=${encodeURIComponent(`${BRAND.name} — intro`)}`} className="btn btn-ghost" style={{ fontSize: 13, padding: '8px 16px' }}>
+            Get in touch →
           </a>
         </div>
       </div>

@@ -1,89 +1,110 @@
 import { Link } from 'react-router-dom'
+import { BRAND } from '../../lib/brand'
 import styles from './Footer.module.css'
+
+const linkStyle = {
+  color: 'rgba(245,241,232,0.5)',
+  fontSize: 13,
+  textDecoration: 'none' as const,
+}
+
+function FooterLink({ to, children }: { to: string; children: React.ReactNode }) {
+  return (
+    <Link
+      to={to}
+      style={linkStyle}
+      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
+      onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,241,232,0.5)')}
+    >
+      {children}
+    </Link>
+  )
+}
+
+function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+  return (
+    <div>
+      <span className={styles.colTitle}>{title}</span>
+      <ul className={styles.linkList}>
+        {links.map((item) => (
+          <li key={item.label}>
+            <FooterLink to={item.href}>{item.label}</FooterLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 export function Footer() {
   return (
-    <footer style={{ background: 'var(--ink)', color: 'rgba(245,241,232,0.5)', borderTop: '1px solid rgba(245,241,232,0.08)', padding: '60px 0 40px' }}>
+    <footer className={styles.footer}>
       <div className="container">
         <div className={styles.grid}>
-          <div>
-            <div className="serif" style={{ fontSize: 22, color: 'var(--cream-2)', letterSpacing: '-0.01em', marginBottom: 16 }}>Krionics</div>
-            <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, maxWidth: '26ch' }}>
-              B2B pipeline systems. We build the outbound infrastructure and run it — so you get meetings, not excuses.
+          <div className={styles.brandCol}>
+            <Link to="/" aria-label={`${BRAND.name} — home`}>
+              <span className="nav-logo" style={{ color: 'var(--cream-2)' }}>
+                {BRAND.name}
+                <span style={{ color: 'var(--primary)' }}>.</span>
+              </span>
+            </Link>
+            <p className={styles.brandDesc}>{BRAND.description}</p>
+            <p className={styles.brandMeta}>
+              <a href={`mailto:${BRAND.email}`} className={styles.emailLink}>
+                {BRAND.email}
+              </a>
+              <br />
+              <a href={BRAND.url} className={styles.siteLink}>
+                {BRAND.url.replace('https://', '')}
+              </a>
             </p>
-            <p style={{ margin: '16px 0 0', fontSize: 12, fontFamily: 'var(--mono)', letterSpacing: '0.06em' }}>
-              hello@krionics.com
-            </p>
           </div>
 
-          <div>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,241,232,0.4)', display: 'block', marginBottom: 16 }}>Services</span>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {['AI Cold Outbound System', 'AI Voice Agents'].map((item) => (
-                <li key={item}>
-                  <Link to="/#services" style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,241,232,0.5)')}>
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterColumn
+            title="Services"
+            links={[
+              { label: 'AI Cold Outbound System', href: '/#services' },
+              { label: 'AI Voice Agents', href: '/#services' },
+            ]}
+          />
 
-          <div>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,241,232,0.4)', display: 'block', marginBottom: 16 }}>Company</span>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {[
-                { label: 'Our approach', href: '/#approach' },
-                { label: 'Pricing', href: '/#pricing' },
-                { label: 'FAQ', href: '/#faq' },
-                { label: 'Dashboard', href: '/dashboard' },
-              ].map((item) => (
-                <li key={item.label}>
-                  <Link to={item.href} style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,241,232,0.5)')}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterColumn
+            title="Company"
+            links={[
+              { label: 'Our approach', href: '/#approach' },
+              { label: 'Pricing', href: '/#pricing' },
+              { label: 'FAQ', href: '/#faq' },
+              { label: 'About', href: '/about' },
+              { label: 'Blog', href: '/blog' },
+              { label: 'Careers', href: '/careers' },
+              { label: 'Contact', href: '/contact' },
+              { label: 'Dashboard', href: '/dashboard' },
+            ]}
+          />
 
-          <div>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(245,241,232,0.4)', display: 'block', marginBottom: 16 }}>Get started</span>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <li>
-                <Link to="/book" style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,241,232,0.5)')}>
-                  Book a call
-                </Link>
-              </li>
-              <li>
-                <a href="#roi" style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,241,232,0.5)')}>
-                  ROI calculator
-                </a>
-              </li>
-              <li>
-                <a href="#pricing" style={{ color: 'rgba(245,241,232,0.5)', fontSize: 13, textDecoration: 'none' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--cream-2)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(245,241,232,0.5)')}>
-                  See pricing
-                </a>
-              </li>
-            </ul>
-          </div>
+          <FooterColumn
+            title="Legal"
+            links={[
+              { label: 'Privacy Policy', href: '/privacy-policy' },
+              { label: 'Terms of Service', href: '/terms' },
+            ]}
+          />
+
+          <FooterColumn
+            title="Get started"
+            links={[
+              { label: 'Book a call', href: '/book' },
+              { label: 'ROI calculator', href: '/#roi' },
+              { label: 'See pricing', href: '/#pricing' },
+            ]}
+          />
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.06em' }}>
-            © {new Date().getFullYear()} Krionics. All rights reserved.
+        <div className={styles.bar}>
+          <span className={styles.barCopy}>
+            © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
           </span>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.06em' }}>
+          <span className={styles.barCopy}>
             B2B pipeline systems · Cold outbound · AI voice agents
           </span>
         </div>
