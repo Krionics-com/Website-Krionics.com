@@ -14,7 +14,10 @@ export function Nav() {
       <header className="nav">
         <div className="container-wide nav-inner">
           <Link to="/" aria-label="Krionics — home" style={{ flexShrink: 0 }}>
-            <span className="nav-logo">Krionics<span style={{ color: 'var(--primary)' }}>.</span></span>
+            <span className="nav-logo-wrap">
+              <img src="/logo.png" alt="" className="nav-logo-icon" aria-hidden="true" />
+              <span className="nav-logo">Krionics<span style={{ color: 'var(--primary)' }}>.</span></span>
+            </span>
           </Link>
           <nav className="nav-links">
             <a className="nav-link" href={anchor('approach')}>Our approach</a>
@@ -42,7 +45,10 @@ export function Nav() {
       {open && (
         <div className="mobile-menu" onClick={() => setOpen(false)}>
           <div className={styles.mobileHeader}>
-            <span className="nav-logo">Krionics<span style={{ color: 'var(--primary)' }}>.</span></span>
+            <span className="nav-logo-wrap">
+              <img src="/logo.png" alt="" className="nav-logo-icon" aria-hidden="true" />
+              <span className="nav-logo">Krionics<span style={{ color: 'var(--primary)' }}>.</span></span>
+            </span>
             <button onClick={() => setOpen(false)} style={{ fontFamily: 'var(--mono)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
               Close ×
             </button>

@@ -14,15 +14,20 @@ export function FinalCTA() {
           You already know the problem. You've seen the math. The only question is whether you want to do something about it before your competitors do.
         </p>
         <div className="reveal" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-          <Link to="/book" className="btn btn-primary" style={{ fontSize: 16, padding: '16px 36px' }}>
-            Book a call <span className="arrow">→</span>
-          </Link>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Link to="/book" className="btn btn-primary" style={{ fontSize: 16, padding: '16px 36px' }}>
+              Book a call <span className="arrow">→</span>
+            </Link>
+            <Link to="/dashboard" className="btn btn-ghost" style={{ fontSize: 16, padding: '16px 28px', borderColor: 'rgba(245,241,232,0.2)', color: 'rgba(245,241,232,0.75)' }}>
+              See the dashboard
+            </Link>
+          </div>
           <span style={{ fontFamily: 'var(--mono)', fontSize: 12, color: 'rgba(245,241,232,0.4)', letterSpacing: '0.06em' }}>
             No pitch deck. No sales process. Just the call.
           </span>
         </div>
 
-        <div className="reveal" style={{ marginTop: 80, paddingTop: 48, borderTop: '1px solid rgba(245,241,232,0.12)', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, textAlign: 'left' }}>
+        <div className="reveal" style={{ marginTop: 80, paddingTop: 48, borderTop: '1px solid rgba(245,241,232,0.12)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 32, textAlign: 'left' }}>
           {[
             { label: '14-day setup', sub: 'From signed to running in two weeks' },
             { label: 'Month-to-month', sub: 'After the 3-month minimum' },

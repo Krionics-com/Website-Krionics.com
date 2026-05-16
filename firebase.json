@@ -18,6 +18,11 @@
         "region": "us-central1"
       },
       {
+        "source": "/api/contact",
+        "function": "saveContact",
+        "region": "us-central1"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

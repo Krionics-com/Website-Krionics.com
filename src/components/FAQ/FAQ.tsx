@@ -81,6 +81,14 @@ export function FAQ() {
             }
           />
           <FAQItem
+            q="How does this integrate with our CRM?"
+            a={
+              <p>
+                We configure n8n automations to route qualified replies and booked meetings directly into your CRM — tagged by status, sequence, and ICP tier. We've integrated with HubSpot, Salesforce, and Pipedrive. If you're on something else, tell us on the call and we'll confirm compatibility before you sign. CRM sync is included in Systematize and Outpace; Growth clients get basic Calendly routing.
+              </p>
+            }
+          />
+          <FAQItem
             q="What happens to my infrastructure if I cancel?"
             a={
               <p>

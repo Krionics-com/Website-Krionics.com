@@ -2,17 +2,17 @@ import { Link } from 'react-router-dom'
 import styles from './DashboardEmbed.module.css'
 
 const KPI_CARDS = [
-  { label: 'Meetings booked (30d)', value: '—' },
-  { label: 'Open rate', value: '—' },
-  { label: 'Reply rate', value: '—' },
-  { label: 'Pipeline created', value: '—' },
+  { label: 'Meetings booked (30d)', value: '12' },
+  { label: 'Open rate', value: '41%' },
+  { label: 'Reply rate', value: '4.2%' },
+  { label: 'Pipeline created', value: '$288k' },
 ]
 
 const INBOX_ROWS = [
-  { name: '—', company: '—', status: 'Interested', time: '—' },
-  { name: '—', company: '—', status: 'Meeting booked', time: '—' },
-  { name: '—', company: '—', status: 'Interested', time: '—' },
-  { name: '—', company: '—', status: 'Follow-up sent', time: '—' },
+  { name: 'Marcus Webb', company: 'Clearpath SaaS', status: 'Meeting booked', time: '2h ago' },
+  { name: 'Priya Nair', company: 'Velox AI', status: 'Interested', time: '4h ago' },
+  { name: 'Dan Kowalski', company: 'Stackform', status: 'Follow-up sent', time: '1d ago' },
+  { name: 'Jamie Torres', company: 'RevPath', status: 'Interested', time: '1d ago' },
 ]
 
 const STATUS_COLORS: Record<string, string> = {
@@ -53,7 +53,7 @@ export function DashboardEmbed() {
                 <div key={k.label} className={styles.kpiCard}>
                   <span className={styles.kpiLabel}>{k.label}</span>
                   <div className={styles.kpiValue}>{k.value}</div>
-                  <span className={styles.kpiSub}>Populates day 15</span>
+                  <span className={styles.kpiSub}>Your numbers, day 15+</span>
                 </div>
               ))}
             </div>
@@ -106,7 +106,7 @@ export function DashboardEmbed() {
             </table>
 
             <div className={styles.screenFooter}>
-              <span style={{ fontFamily: 'var(--mono)', fontSize: 11 }}>Showing 4 of — total replies</span>
+              <span style={{ fontFamily: 'var(--mono)', fontSize: 11 }}>Showing 4 of 47 total replies</span>
               <span style={{ color: 'var(--text-2)', fontFamily: 'var(--mono)', fontSize: 11 }}>All data is yours. Export any time.</span>
             </div>
           </div>
@@ -117,7 +117,7 @@ export function DashboardEmbed() {
             See the full dashboard →
           </Link>
           <span className="mono" style={{ fontSize: 11, color: 'var(--text-2)' }}>
-            All — placeholders become your real numbers on day 15
+            Sample data shown — your real numbers populate on day 15
           </span>
         </div>
       </div>

@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 import styles from './Hero.module.css'
 
 const metrics = [
-  { label: 'MEETINGS BOOKED', value: '—' },
-  { label: 'REPLY RATE', value: '—' },
-  { label: 'EMAILS SENT', value: '—' },
-  { label: 'COST PER MTG', value: '—' },
+  { label: 'MEETINGS BOOKED', value: '12' },
+  { label: 'REPLY RATE', value: '4.2%' },
+  { label: 'EMAILS SENT', value: '2,847' },
+  { label: 'COST PER MTG', value: '$208' },
 ]
 
 function DashCard() {
@@ -40,12 +40,12 @@ function DashCard() {
             <div key={i} className={styles.chartBar} style={{ height: `${h}%`, opacity: 0.12 + (i / 14) * 0.5 }} />
           ))}
         </div>
-        <p className={styles.dashNote}>Your real numbers populate here on day 15.</p>
+        <p className={styles.dashNote}>Sample data — your real numbers replace these on day 15.</p>
       </div>
 
       <div className={styles.badgeReply}>
         <span className={styles.badgeReplyLabel}>REPLY RATE</span>
-        <span className={styles.badgeReplyValue}>—%</span>
+        <span className={styles.badgeReplyValue}>4.2%</span>
       </div>
     </div>
   )

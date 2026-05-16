@@ -10,7 +10,15 @@ admin.initializeApp()
 const db = admin.firestore()
 
 const groqApiKey = defineSecret('GROQ_API_KEY')
-const ALLOWED_ORIGINS = new Set(['https://krionics.com','https://www.krionics.com','https://krionics-39060.firebaseapp.com','https://krionics-39060.web.app'])
+const resendApiKey = defineSecret('RESEND_API_KEY')
+const ALLOWED_ORIGINS = new Set([
+  'https://krionics.com',
+  'https://www.krionics.com',
+  'https://krionics-39060.firebaseapp.com',
+  'https://krionics-39060.web.app',
+  'http://localhost:5173',
+  'http://localhost:5174',
+])
 
 const applyCors = (req: Request, res: Response) => {
   const origin = req.get('origin')
@@ -281,10 +289,10 @@ export const saveLead = onRequest(
     }
 
     try {
-      const { name, company, role, website, acv, challenge, time, sessionId } =
+      const { name, company, role, website, acv, challenge, currentMeetings, time, sessionId, source } =
         req.body as Record<string, string>
 
-      if (!company || !time) {
+      if (!company) {
         res.status(400).json({ error: 'Missing required fields' })
         return
       }
@@ -296,9 +304,10 @@ export const saveLead = onRequest(
         website: website ?? '',
         acv: acv ?? '',
         challenge: challenge ?? '',
-        time,
+        currentMeetings: currentMeetings ?? '',
+        time: time ?? '',
         sessionId: sessionId ?? '',
-        source: 'chat_widget',
+        source: source ?? 'chat_widget',
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
       })
 
@@ -306,6 +315,67 @@ export const saveLead = onRequest(
     } catch (err) {
       console.error('saveLead error:', err)
       res.status(500).json({ error: 'Failed to save lead' })
+    }
+  }
+)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// POST /api/contact — save contact form submission + email team via Resend
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const saveContact = onRequest(
+  {
+    cors: false,
+    region: 'us-central1',
+    secrets: [resendApiKey],
+    invoker: 'public',
+  },
+  async (req: Request, res: Response) => {
+    applyCors(req, res)
+    if (req.method === 'OPTIONS') {
+      res.status(204).end()
+      return
+    }
+    if (req.method !== 'POST') {
+      res.status(405).json({ error: 'Method not allowed' })
+      return
+    }
+
+    try {
+      const { name, email, company, reason, message } = req.body as Record<string, string>
+
+      if (!name || !email || !message) {
+        res.status(400).json({ error: 'Missing required fields' })
+        return
+      }
+
+      await db.collection('contacts').add({
+        name,
+        email,
+        company: company ?? '',
+        reason: reason ?? '',
+        message,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      })
+
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${resendApiKey.value()}`,
+        },
+        body: JSON.stringify({
+          from: 'Krionics Website <onboarding@resend.dev>',
+          to: ['hello@krionics.com'],
+          subject: `New contact: ${reason || 'General'} — ${company || name}`,
+          text: `Name: ${name}\nEmail: ${email}\nCompany: ${company || '—'}\nReason: ${reason || '—'}\n\n${message}`,
+        }),
+      })
+
+      res.status(200).json({ success: true })
+    } catch (err) {
+      console.error('saveContact error:', err)
+      res.status(500).json({ error: 'Failed to save contact' })
     }
   }
 )

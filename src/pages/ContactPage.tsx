@@ -14,8 +14,12 @@ const CONTACT_REASONS = [
   'Other',
 ]
 
+const API_BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? ''
+
 export function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -30,14 +34,23 @@ export function ContactPage() {
     path: '/contact',
   })
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`[${BRAND.name}] ${form.reason} — ${form.company || form.name}`)
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\nReason: ${form.reason}\n\n${form.message}`,
-    )
-    window.location.href = `mailto:${BRAND.email}?subject=${subject}&body=${body}`
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch(`${API_BASE}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('Failed')
+      setSubmitted(true)
+    } catch {
+      setError(`Something went wrong. Email us directly at ${BRAND.email}`)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -89,11 +102,10 @@ export function ContactPage() {
               {submitted ? (
                 <div className={styles.success}>
                   <h2 className="serif" style={{ fontSize: 28, margin: '0 0 12px', letterSpacing: '-0.02em' }}>
-                    Opening your email client…
+                    Message sent.
                   </h2>
                   <p className="muted" style={{ margin: 0, fontSize: 15, lineHeight: 1.65 }}>
-                    If nothing opened, email us directly at{' '}
-                    <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>.
+                    We'll get back to you within one business day at <strong>{form.email}</strong>.
                   </p>
                 </div>
               ) : (
@@ -155,8 +167,11 @@ export function ContactPage() {
                       placeholder="Tell us what you are looking for…"
                     />
                   </label>
-                  <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
-                    Send message <span className="arrow">→</span>
+                  {error && (
+                    <p style={{ margin: 0, fontSize: 14, color: 'var(--primary)', lineHeight: 1.5 }}>{error}</p>
+                  )}
+                  <button type="submit" className="btn btn-primary" disabled={loading} style={{ alignSelf: 'flex-start', opacity: loading ? 0.6 : 1 }}>
+                    {loading ? 'Sending…' : <> Send message <span className="arrow">→</span></>}
                   </button>
                 </form>
               )}

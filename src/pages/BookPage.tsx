@@ -1,6 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Cal, { getCalApi } from '@calcom/embed-react'
 import styles from './BookPage.module.css'
+
+// Set VITE_CALCOM_LINK in .env.local to your Cal.com event link, e.g. "krionics/discovery"
+const CALCOM_LINK = (import.meta.env.VITE_CALCOM_LINK as string | undefined) ?? 'krionics/15-min-discovery-call'
+const API_BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? ''
 
 type Step = 1 | 2 | 3 | 4
 
@@ -11,23 +16,13 @@ interface FormData {
   acv: string
   currentMeetings: string
   biggestChallenge: string
-  hearAboutUs: string
-  time: string
 }
-
-const TIMES = [
-  'Mon 9am ET', 'Mon 1pm ET', 'Mon 3pm ET',
-  'Tue 9am ET', 'Tue 1pm ET', 'Tue 3pm ET',
-  'Wed 9am ET', 'Wed 1pm ET',
-  'Thu 9am ET', 'Thu 11am ET', 'Thu 3pm ET',
-  'Fri 9am ET', 'Fri 11am ET',
-]
 
 const CHALLENGES = [
   'No consistent pipeline',
-  'SDR keeps quitting',
+  "SDR keeps quitting",
   'Tools but no system',
-  'Agency that didn\'t deliver',
+  "Agency that didn't deliver",
   'Scaling beyond founder-led sales',
   'Other',
 ]
@@ -41,8 +36,6 @@ export function BookPage() {
     acv: '',
     currentMeetings: '',
     biggestChallenge: '',
-    hearAboutUs: '',
-    time: '',
   })
 
   const set = (k: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
@@ -51,8 +44,68 @@ export function BookPage() {
   const stepValid = (s: Step) => {
     if (s === 1) return form.company && form.role && form.website
     if (s === 2) return form.acv && form.biggestChallenge
-    if (s === 3) return !!form.time
     return true
+  }
+
+  // Initialize Cal.com embed and listen for booking completion when on Step 3
+  useEffect(() => {
+    if (step !== 3) return
+    let mounted = true;
+    (async () => {
+      const cal = await getCalApi({ namespace: 'booking' })
+      if (!mounted) return
+      cal('ui', {
+        theme: 'light',
+        cssVarsPerTheme: {
+          light: {
+            'cal-brand': '#B85C38',
+            'cal-bg': '#FBF9F4',
+            'cal-bg-muted': '#F5F1E8',
+            'cal-text': '#1A1F1B',
+            'cal-text-subtle': '#6B6B6B',
+            'cal-border': '#E8E2D5',
+            'cal-border-emphasis': '#D4CCB8',
+          },
+          dark: {
+            'cal-brand': '#B85C38',
+            'cal-bg': '#FBF9F4',
+            'cal-bg-muted': '#F5F1E8',
+            'cal-text': '#1A1F1B',
+            'cal-text-subtle': '#6B6B6B',
+            'cal-border': '#E8E2D5',
+            'cal-border-emphasis': '#D4CCB8',
+          },
+        },
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+      })
+      cal('on', {
+        action: 'bookingSuccessful',
+        callback: () => {
+          if (mounted) setStep(4)
+        },
+      })
+    })()
+    return () => { mounted = false }
+  }, [step])
+
+  // Save qualification lead to Firestore when moving from Step 2 → 3
+  function handleStep2Continue() {
+    if (!stepValid(2)) return
+    fetch(`${API_BASE}/api/lead`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company: form.company,
+        role: form.role,
+        website: form.website,
+        acv: form.acv,
+        challenge: form.biggestChallenge,
+        currentMeetings: form.currentMeetings,
+        source: 'book_page',
+      }),
+    }).catch(() => {}) // fire-and-forget — never block the user
+    setStep(3)
   }
 
   return (
@@ -97,7 +150,7 @@ export function BookPage() {
           </span>
         </div>
 
-        <div style={{ maxWidth: 560 }}>
+        <div style={{ maxWidth: step === 3 ? 900 : 560 }}>
           {/* Step 1 */}
           {step === 1 && (
             <div>
@@ -157,46 +210,32 @@ export function BookPage() {
 
               <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
                 <button className="btn btn-ghost" onClick={() => setStep(1)}>← Back</button>
-                <button className="btn btn-primary" onClick={() => stepValid(2) && setStep(3)} style={{ opacity: stepValid(2) ? 1 : 0.4 }}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleStep2Continue}
+                  style={{ opacity: stepValid(2) ? 1 : 0.4 }}
+                >
                   Continue <span className="arrow">→</span>
                 </button>
               </div>
             </div>
           )}
 
-          {/* Step 3 */}
+          {/* Step 3 — Cal.com inline embed */}
           {step === 3 && (
             <div>
               <h1 className="serif" style={{ fontSize: 36, letterSpacing: '-0.02em', margin: '0 0 8px' }}>Pick a time.</h1>
-              <p className="muted" style={{ fontSize: 15, margin: '0 0 40px' }}>15 minutes. All times are Eastern. We'll send a calendar invite immediately.</p>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-                {TIMES.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setForm((f) => ({ ...f, time: t }))}
-                    style={{
-                      padding: '12px 8px',
-                      background: form.time === t ? 'var(--ink)' : 'var(--bg-elev)',
-                      border: '1px solid ' + (form.time === t ? 'var(--ink)' : 'var(--border)'),
-                      color: form.time === t ? 'var(--cream-2)' : 'var(--text)',
-                      fontFamily: 'var(--mono)',
-                      fontSize: 12,
-                      cursor: 'pointer',
-                      letterSpacing: '0.04em',
-                      transition: 'all 0.15s',
-                    }}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-
-              <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
+              <p className="muted" style={{ fontSize: 15, margin: '0 0 32px' }}>
+                15 minutes. We'll read your answers before the call.
+              </p>
+              <Cal
+                namespace="booking"
+                calLink={CALCOM_LINK}
+                style={{ width: '100%', height: '660px', overflow: 'scroll', borderRadius: 8, border: '1px solid var(--border)' }}
+                config={{ layout: 'month_view' }}
+              />
+              <div style={{ marginTop: 16 }}>
                 <button className="btn btn-ghost" onClick={() => setStep(2)}>← Back</button>
-                <button className="btn btn-primary" onClick={() => stepValid(3) && setStep(4)} style={{ opacity: stepValid(3) ? 1 : 0.4 }}>
-                  Confirm booking <span className="arrow">→</span>
-                </button>
               </div>
             </div>
           )}
@@ -209,7 +248,7 @@ export function BookPage() {
               </div>
               <h1 className="serif" style={{ fontSize: 40, letterSpacing: '-0.02em', margin: '0 0 16px' }}>You're booked.</h1>
               <p className="muted" style={{ fontSize: 16, margin: '0 0 8px' }}>
-                <strong style={{ color: 'var(--text)' }}>{form.time}</strong> · 15 minutes · Google Meet link incoming
+                Check your inbox — a calendar invite is on its way.
               </p>
               <p className="muted" style={{ fontSize: 15, margin: '0 0 40px', maxWidth: '40ch', marginLeft: 'auto', marginRight: 'auto', lineHeight: 1.65 }}>
                 We'll read your answers before the call. Come with your real numbers — we'll pressure-test them together.

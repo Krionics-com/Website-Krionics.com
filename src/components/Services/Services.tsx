@@ -114,6 +114,24 @@ export function Services() {
           </p>
           <span className="mono" style={{ fontSize: 11, color: 'var(--text-2)', letterSpacing: '0.08em', flexShrink: 0 }}>PUBLISHED PRICING. NO DANCE.</span>
         </div>
+
+        <div className="reveal" style={{ marginTop: 24, border: '1px solid var(--border)', borderRadius: 6, overflow: 'hidden' }}>
+          <div style={{ padding: '14px 24px', borderBottom: '1px solid var(--border)', background: 'var(--bg-elev)' }}>
+            <span className="mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: 'var(--text-2)', textTransform: 'uppercase' }}>Not sure which system fits?</span>
+          </div>
+          <div className={styles.decisionGrid}>
+            {[
+              { signal: 'No outbound pipeline yet', recommendation: '→ Start with Service A (Cold Outbound)' },
+              { signal: 'Getting inbound but losing leads on calls', recommendation: '→ Start with Service B (Voice Agent)' },
+              { signal: 'Both problems at once', recommendation: '→ Book the call — we spec the combined system' },
+            ].map((row) => (
+              <div key={row.signal} className={styles.decisionItem}>
+                <p style={{ margin: '0 0 6px', fontSize: 13.5, color: 'var(--text)', lineHeight: 1.5 }}>{row.signal}</p>
+                <p className="mono" style={{ margin: 0, fontSize: 12, color: 'var(--primary)', letterSpacing: '0.02em' }}>{row.recommendation}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

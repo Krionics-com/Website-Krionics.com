@@ -222,7 +222,11 @@ function MessageBubble({ msg }: { msg: Message }) {
   const isUser = msg.role === 'user'
   return (
     <div className={isUser ? styles.msgUser : styles.msgBot}>
-      {!isUser && <div className={styles.avatar}>K</div>}
+      {!isUser && (
+        <div className={styles.avatar}>
+          <img src="/logo.png" alt="" style={{ width: 18, height: 18, objectFit: 'contain' }} />
+        </div>
+      )}
       <div className={isUser ? styles.bubbleUser : styles.bubbleBot}>
         {renderText(msg.content)}
         {msg.isStreaming && <span className={styles.cursor} />}
@@ -616,7 +620,6 @@ export function ChatWidget() {
       {/* ── Floating bubble ─────────────────────────────────── */}
       <button
         className={styles.bubble}
-        style={{ filter: 'url(#kr-glass-refract)' }}
         onClick={() => dispatch({ type: state.isOpen ? 'CLOSE' : 'OPEN' })}
         aria-label={state.isOpen ? 'Close chat' : 'Open chat'}
       >
@@ -626,9 +629,15 @@ export function ChatWidget() {
           </svg>
         ) : (
           <>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
+            <img
+              src="/logo.png"
+              alt="Krionics"
+              style={{
+                width: 40, height: 40,
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.22))',
+              }}
+            />
             {state.hasUnread && <span className={styles.unreadDot} />}
           </>
         )}
@@ -641,7 +650,7 @@ export function ChatWidget() {
           <div className={styles.header}>
             <div className={styles.headerLeft}>
               <div className={styles.headerAvatar}>
-                <span className={styles.headerAvatarLetter}>K</span>
+                <img src="/logo.png" alt="Krionics" className={styles.headerAvatarImg} />
               </div>
               <div className={styles.headerText}>
                 <div className={styles.headerTitle}>

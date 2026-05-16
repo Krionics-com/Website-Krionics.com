@@ -94,8 +94,35 @@
   border-top: 1px solid var(--border);
 }
 
+.decisionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.decisionItem {
+  padding: 18px 24px;
+  border-right: 1px solid var(--border);
+}
+
+.decisionItem:last-child {
+  border-right: none;
+}
+
 @media (max-width: 960px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .decisionGrid {
+    grid-template-columns: 1fr;
+  }
+  .decisionItem {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .decisionItem:last-child {
+    border-bottom: none;
   }
 }

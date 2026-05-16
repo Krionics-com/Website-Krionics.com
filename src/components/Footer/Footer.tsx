@@ -43,9 +43,12 @@ export function Footer() {
         <div className={styles.grid}>
           <div className={styles.brandCol}>
             <Link to="/" aria-label={`${BRAND.name} — home`}>
-              <span className="nav-logo" style={{ color: 'var(--cream-2)' }}>
-                {BRAND.name}
-                <span style={{ color: 'var(--primary)' }}>.</span>
+              <span className="nav-logo-wrap">
+                <img src="/logo.png" alt="" className="nav-logo-icon" aria-hidden="true" style={{ height: 26, borderRadius: 5 }} />
+                <span className="nav-logo" style={{ color: 'var(--cream-2)' }}>
+                  {BRAND.name}
+                  <span style={{ color: 'var(--primary)' }}>.</span>
+                </span>
               </span>
             </Link>
             <p className={styles.brandDesc}>{BRAND.description}</p>
