@@ -509,7 +509,7 @@ export function ChatWidget() {
               if (parsed.delta) {
                 full += parsed.delta
                 flushSync(() => {
-                  dispatch({ type: 'APPEND_STREAM', payload: { id: streamId, delta: parsed.delta } })
+                  dispatch({ type: 'APPEND_STREAM', payload: { id: streamId, delta: parsed.delta ?? '' } })
                 })
               }
             } catch {
