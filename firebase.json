@@ -28,6 +28,11 @@
         "region": "us-central1"
       },
       {
+        "source": "/api/cal-webhook",
+        "function": "calWebhook",
+        "region": "us-central1"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useState,
 } from 'react'
+import { flushSync } from 'react-dom'
 import styles from './ChatWidget.module.css'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -51,6 +52,7 @@ type Action =
   | { type: 'APPEND_STREAM'; payload: { id: string; delta: string } }
   | { type: 'END_STREAM'; payload: string }
   | { type: 'TRIGGER_BOOKING' }
+  | { type: 'BACK_FROM_BOOKING' }
   | { type: 'BOOKING_NEXT'; payload: Partial<BookingData> }
   | { type: 'SET_TIME'; payload: string }
   | { type: 'SUBMIT_BOOKING' }
@@ -129,23 +131,21 @@ function reducer(state: State, action: Action): State {
       return { ...state, messages: msgs }
     }
     case 'END_STREAM': {
-      const hasBookNow = action.payload.includes('[BOOK_NOW]')
       const clean = action.payload.replace('[BOOK_NOW]', '').trim()
       const msgs = state.messages.map((m) =>
         m.isStreaming ? { ...m, content: clean, isStreaming: false } : m
       )
-      const hasUnread = !state.isOpen
       return {
         ...state,
         messages: msgs,
         isStreaming: false,
-        hasUnread,
-        bookingMode: hasBookNow ? true : state.bookingMode,
-        bookingStep: hasBookNow && !state.bookingMode ? 0 : state.bookingStep,
+        hasUnread: !state.isOpen,
       }
     }
     case 'TRIGGER_BOOKING':
       return { ...state, bookingMode: true, bookingStep: 0 }
+    case 'BACK_FROM_BOOKING':
+      return { ...state, bookingMode: false, bookingStep: 0 }
     case 'BOOKING_NEXT': {
       const newData = { ...state.bookingData, ...action.payload }
       const next = (state.bookingStep + 1) as BookingStep
@@ -508,7 +508,9 @@ export function ChatWidget() {
               if (parsed.error) throw new Error(parsed.error)
               if (parsed.delta) {
                 full += parsed.delta
-                dispatch({ type: 'APPEND_STREAM', payload: { id: streamId, delta: parsed.delta } })
+                flushSync(() => {
+                  dispatch({ type: 'APPEND_STREAM', payload: { id: streamId, delta: parsed.delta } })
+                })
               }
             } catch {
               // malformed chunk — skip
@@ -589,8 +591,7 @@ export function ChatWidget() {
   }
 
   const handleBackFromBooking = () => {
-    dispatch({ type: 'CLOSE' })
-    setTimeout(() => dispatch({ type: 'OPEN' }), 10)
+    dispatch({ type: 'BACK_FROM_BOOKING' })
   }
 
   const isOnlyWelcome = state.messages.length === 1
@@ -634,7 +635,7 @@ export function ChatWidget() {
             <img
               src="/logo.png"
               alt="Krionics"
-              style={{ width: 42, height: 42, objectFit: 'contain' }}
+              style={{ width: 42, height: 42, objectFit: 'contain', transform: 'scaleX(-1)' }}
             />
             {state.hasUnread && <span className={styles.unreadDot} />}
           </>
@@ -648,7 +649,7 @@ export function ChatWidget() {
           <div className={styles.header}>
             <div className={styles.headerLeft}>
               <div className={styles.headerAvatar}>
-                <img src="/logo.png" alt="Krionics" className={styles.headerAvatarImg} />
+                <img src="/logo.png" alt="Krionics" className={styles.headerAvatarImg} style={{ transform: 'scaleX(-1)' }} />
               </div>
               <div className={styles.headerText}>
                 <div className={styles.headerTitle}>
@@ -686,10 +687,13 @@ export function ChatWidget() {
             <>
               {/* Messages */}
               <div className={styles.messages} role="log" aria-live="polite">
-                {state.messages.map((m) => (
-                  <MessageBubble key={m.id} msg={m} />
-                ))}
-                {state.isStreaming && !state.messages[state.messages.length - 1]?.isStreaming && (
+                {state.messages.map((m) =>
+                  m.isStreaming && !m.content ? null : <MessageBubble key={m.id} msg={m} />
+                )}
+                {state.isStreaming && (() => {
+                  const last = state.messages[state.messages.length - 1]
+                  return !last?.isStreaming || !last?.content
+                })() && (
                   <TypingDots />
                 )}
 

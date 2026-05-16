@@ -1,6 +1,5 @@
-// Final SEO and IAM update
-
 import * as admin from 'firebase-admin'
+import * as crypto from 'crypto'
 import { onRequest } from 'firebase-functions/v2/https'
 import { defineSecret } from 'firebase-functions/params'
 import Groq from 'groq-sdk'
@@ -11,6 +10,8 @@ const db = admin.firestore()
 
 const groqApiKey = defineSecret('GROQ_API_KEY')
 const resendApiKey = defineSecret('RESEND_API_KEY')
+const calWebhookSecret = defineSecret('CAL_WEBHOOK_SECRET')
+const slackWebhookUrl = defineSecret('SLACK_WEBHOOK_URL')
 const ALLOWED_ORIGINS = new Set([
   'https://krionics.com',
   'https://www.krionics.com',
@@ -30,6 +31,14 @@ const applyCors = (req: Request, res: Response) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
   res.setHeader('Access-Control-Max-Age', '3600')
 }
+function notifySlack(webhookUrl: string, text: string): void {
+  fetch(webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text }),
+  }).catch((err) => console.warn('Slack notify failed:', err))
+}
+
 type ChatRole = 'system' | 'user' | 'assistant'
 type ChatMessage = { role: ChatRole; content: string }
 
@@ -276,6 +285,7 @@ export const saveLead = onRequest(
   {
     cors: false,
     region: 'us-central1',
+    secrets: [slackWebhookUrl],
   },
   async (req: Request, res: Response) => {
     applyCors(req, res)
@@ -310,6 +320,14 @@ export const saveLead = onRequest(
         source: source ?? 'chat_widget',
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
       })
+
+      // Notify Slack for book-page leads (highest intent)
+      if (source === 'book_page') {
+        notifySlack(
+          slackWebhookUrl.value(),
+          `🎯 *New lead — about to book*\n*${company}* | ${role || '—'}\nACV: ${acv || '—'} | Challenge: ${challenge || '—'}${currentMeetings ? `\nCurrent meetings/mo: ${currentMeetings}` : ''}`,
+        )
+      }
 
       res.status(200).json({ success: true, id: docRef.id })
     } catch (err) {
@@ -388,6 +406,7 @@ export const updateLead = onRequest(
   {
     cors: false,
     region: 'us-central1',
+    secrets: [slackWebhookUrl],
     invoker: 'public',
   },
   async (req: Request, res: Response) => {
@@ -418,10 +437,134 @@ export const updateLead = onRequest(
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       })
 
+      // Fetch qualification data to include in the Slack message
+      const leadSnap = await db.collection('leads').doc(id).get()
+      const lead = leadSnap.data() ?? {}
+      const timeStr = bookedTime ? new Date(bookedTime).toUTCString().replace(' GMT', ' UTC') : '—'
+      notifySlack(
+        slackWebhookUrl.value(),
+        `✅ *Call booked!*\n*${bookerName || 'Unknown'}* (${bookerEmail || '—'}) · *${lead.company || '—'}*\n📅 ${timeStr}\nACV: ${lead.acv || '—'} | Challenge: ${lead.challenge || '—'}`,
+      )
+
       res.status(200).json({ success: true })
     } catch (err) {
       console.error('updateLead error:', err)
       res.status(500).json({ error: 'Failed to update lead' })
+    }
+  }
+)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// POST /api/cal-webhook — receives Cal.com booking lifecycle events
+// ─────────────────────────────────────────────────────────────────────────────
+
+type CalPayload = {
+  triggerEvent: string
+  payload: {
+    uid: string
+    startTime?: string
+    rescheduleUid?: string
+    attendees?: Array<{ name?: string; email?: string }>
+  }
+}
+
+export const calWebhook = onRequest(
+  {
+    cors: false,
+    region: 'us-central1',
+    secrets: [calWebhookSecret, slackWebhookUrl],
+    invoker: 'public',
+  },
+  async (req: Request, res: Response) => {
+    if (req.method !== 'POST') {
+      res.status(405).end()
+      return
+    }
+
+    // Verify HMAC-SHA256 signature from Cal.com
+    const signature = req.get('X-Cal-Signature-256') ?? ''
+    const rawBody = (req as Request & { rawBody?: Buffer }).rawBody
+    const bodyForHmac = rawBody ?? Buffer.from(JSON.stringify(req.body))
+    const expected = crypto.createHmac('sha256', calWebhookSecret.value()).update(bodyForHmac).digest('hex')
+
+    let sigValid = false
+    try {
+      sigValid = signature.length === expected.length &&
+        crypto.timingSafeEqual(Buffer.from(signature, 'hex'), Buffer.from(expected, 'hex'))
+    } catch {
+      sigValid = false
+    }
+
+    if (!sigValid) {
+      console.warn('calWebhook: invalid signature')
+      res.status(401).json({ error: 'Invalid signature' })
+      return
+    }
+
+    const { triggerEvent, payload } = req.body as CalPayload
+
+    try {
+      if (triggerEvent === 'BOOKING_CANCELLED') {
+        const snap = await db.collection('leads').where('bookingUid', '==', payload.uid).limit(1).get()
+        if (!snap.empty) {
+          const lead = snap.docs[0].data()
+          await snap.docs[0].ref.update({
+            status: 'cancelled',
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          })
+          notifySlack(
+            slackWebhookUrl.value(),
+            `❌ *Booking cancelled*\n${lead.bookerName || lead.bookerEmail || 'Unknown'} from *${lead.company || '—'}* cancelled their call`,
+          )
+        }
+      } else if (triggerEvent === 'BOOKING_RESCHEDULED') {
+        // rescheduleUid = old uid, payload.uid = new uid
+        const lookupUid = payload.rescheduleUid ?? payload.uid
+        const snap = await db.collection('leads').where('bookingUid', '==', lookupUid).limit(1).get()
+        if (!snap.empty) {
+          const lead = snap.docs[0].data()
+          const newTimeStr = payload.startTime ? new Date(payload.startTime).toUTCString().replace(' GMT', ' UTC') : '—'
+          await snap.docs[0].ref.update({
+            bookingUid: payload.uid,
+            bookedTime: payload.startTime ?? '',
+            status: 'rescheduled',
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          })
+          notifySlack(
+            slackWebhookUrl.value(),
+            `📅 *Rescheduled*\n${lead.bookerName || lead.bookerEmail || 'Unknown'} from *${lead.company || '—'}* moved their call\n📅 New time: ${newTimeStr}`,
+          )
+        }
+      } else if (triggerEvent === 'BOOKING_CREATED') {
+        // Fallback: enrich by attendee email if updateLead didn't fire (e.g. user closed tab)
+        const attendee = payload.attendees?.[0]
+        if (attendee?.email) {
+          const snap = await db.collection('leads')
+            .where('bookerEmail', '==', attendee.email)
+            .where('bookingUid', '==', '')
+            .limit(1).get()
+          if (!snap.empty) {
+            const lead = snap.docs[0].data()
+            const timeStr = payload.startTime ? new Date(payload.startTime).toUTCString().replace(' GMT', ' UTC') : '—'
+            await snap.docs[0].ref.update({
+              bookingUid: payload.uid,
+              bookedTime: payload.startTime ?? '',
+              bookerName: attendee.name ?? '',
+              status: 'booked',
+              updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+            })
+            notifySlack(
+              slackWebhookUrl.value(),
+              `✅ *Call booked!* (via webhook fallback)\n*${attendee.name || 'Unknown'}* (${attendee.email}) · *${lead.company || '—'}*\n📅 ${timeStr}`,
+            )
+          }
+        }
+      }
+
+      res.status(200).json({ ok: true })
+    } catch (err) {
+      console.error('calWebhook error:', err)
+      res.status(500).json({ error: 'Internal error' })
     }
   }
 )
