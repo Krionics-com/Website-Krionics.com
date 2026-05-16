@@ -204,7 +204,9 @@ function renderText(text: string): React.ReactNode[] {
 function TypingDots() {
   return (
     <div className={styles.msgBot}>
-      <div className={styles.avatar}>K</div>
+      <div className={styles.avatar}>
+        <img src="/logo.png" alt="" style={{ width: 18, height: 18, objectFit: 'contain' }} />
+      </div>
       <div className={styles.bubbleBot}>
         <div className={styles.typingDots}>
           <span /><span /><span />
@@ -632,11 +634,7 @@ export function ChatWidget() {
             <img
               src="/logo.png"
               alt="Krionics"
-              style={{
-                width: 40, height: 40,
-                objectFit: 'contain',
-                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.22))',
-              }}
+              style={{ width: 42, height: 42, objectFit: 'contain' }}
             />
             {state.hasUnread && <span className={styles.unreadDot} />}
           </>

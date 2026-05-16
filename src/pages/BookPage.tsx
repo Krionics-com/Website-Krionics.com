@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Cal, { getCalApi } from '@calcom/embed-react'
 import styles from './BookPage.module.css'
@@ -29,6 +29,7 @@ const CHALLENGES = [
 
 export function BookPage() {
   const [step, setStep] = useState<Step>(1)
+  const leadIdRef = useRef<string | null>(null)
   const [form, setForm] = useState<FormData>({
     company: '',
     role: '',
@@ -81,8 +82,26 @@ export function BookPage() {
       })
       cal('on', {
         action: 'bookingSuccessful',
-        callback: () => {
-          if (mounted) setStep(4)
+        callback: (e: unknown) => {
+          if (!mounted) return
+          setStep(4)
+          // Enrich the lead doc with Cal.com booking data (fire-and-forget)
+          type CalBooking = { attendees?: Array<{ name?: string; email?: string }>; startTime?: string; uid?: string }
+          const booking = (e as { detail?: { data?: { booking?: CalBooking } } })?.detail?.data?.booking
+          if (leadIdRef.current && booking) {
+            const attendee = booking.attendees?.[0]
+            fetch(`${API_BASE}/api/updateLead`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                id: leadIdRef.current,
+                bookerName: attendee?.name ?? '',
+                bookerEmail: attendee?.email ?? '',
+                bookedTime: booking.startTime ?? '',
+                bookingUid: booking.uid ?? '',
+              }),
+            }).catch(() => {})
+          }
         },
       })
     })()
@@ -90,22 +109,30 @@ export function BookPage() {
   }, [step])
 
   // Save qualification lead to Firestore when moving from Step 2 → 3
-  function handleStep2Continue() {
+  async function handleStep2Continue() {
     if (!stepValid(2)) return
-    fetch(`${API_BASE}/api/lead`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        company: form.company,
-        role: form.role,
-        website: form.website,
-        acv: form.acv,
-        challenge: form.biggestChallenge,
-        currentMeetings: form.currentMeetings,
-        source: 'book_page',
-      }),
-    }).catch(() => {}) // fire-and-forget — never block the user
     setStep(3)
+    try {
+      const res = await fetch(`${API_BASE}/api/lead`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company: form.company,
+          role: form.role,
+          website: form.website,
+          acv: form.acv,
+          challenge: form.biggestChallenge,
+          currentMeetings: form.currentMeetings,
+          source: 'book_page',
+        }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (data.id) leadIdRef.current = data.id
+      }
+    } catch {
+      // non-fatal — user still proceeds to Cal.com
+    }
   }
 
   return (
