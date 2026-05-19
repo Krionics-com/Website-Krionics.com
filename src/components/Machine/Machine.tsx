@@ -23,7 +23,7 @@ export function Machine() {
       <div className="container-wide">
         <div className={styles.header}>
           <div>
-            <span className="eyebrow-2 reveal">01 / The machine</span>
+            <span className="eyebrow-2 reveal">02 / The machine</span>
             <h2 className="h1 reveal" style={{ margin: '20px 0 0', letterSpacing: '-0.02em' }}>
               A pipeline isn't<br />a campaign.
             </h2>

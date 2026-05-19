@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './Services.module.css'
 
 interface ServiceCardProps {
@@ -47,6 +48,12 @@ function ServiceCard({ n, name, headline, body, tools, deliverables, setup, mont
           <span className={styles.priceLabel}>Monthly</span>
           <div className="serif" style={{ fontSize: 30, lineHeight: 1, marginTop: 4, letterSpacing: '-0.02em', color: 'var(--primary)' }}>{monthly}</div>
         </div>
+      </div>
+
+      <div style={{ marginTop: 24 }}>
+        <Link to="/book" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+          Book a call <span className="arrow">→</span>
+        </Link>
       </div>
     </div>
   )

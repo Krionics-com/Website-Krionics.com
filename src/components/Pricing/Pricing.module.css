@@ -7,15 +7,20 @@
 }
 
 .tier {
-  padding: 36px;
+  padding: 52px;
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   position: relative;
+  transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
 }
 
 .tier:last-child {
   border-right: none;
+}
+
+.tier:not(.recommended):hover {
+  background: var(--bg-elev);
 }
 
 .recommended {
@@ -36,6 +41,92 @@
   letter-spacing: 0.08em;
 }
 
+/* ── Tab bar ─────────────────────────────────────────────── */
+.tabBar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 24px;
+  background: var(--bg);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 200ms ease, border-color 200ms ease;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.tab:hover:not(.tabActive) {
+  background: var(--bg-elev);
+}
+
+.tabActive {
+  background: var(--bg-elev);
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+}
+
+.tabLabel {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.tabName {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Voice agent single-tier layout ─────────────────────── */
+.voiceTier {
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--structural);
+  border-radius: 0 0 4px 4px;
+  padding: 60px;
+}
+
+.voiceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.voiceColTitle {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+
 @media (max-width: 960px) {
   .grid {
     grid-template-columns: 1fr;
@@ -53,5 +144,38 @@
   .badge {
     top: 16px;
     right: 16px;
+  }
+
+  .voiceGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .voiceTier {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .tabBar {
+    flex-direction: column;
+  }
+
+  .tab {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab:last-child {
+    border-bottom: none;
+  }
+
+  .tabActive::after {
+    bottom: auto;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 3px;
+    height: 100%;
   }
 }

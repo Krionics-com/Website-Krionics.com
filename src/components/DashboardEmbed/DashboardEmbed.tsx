@@ -26,7 +26,7 @@ export function DashboardEmbed() {
     <section style={{ paddingTop: 96, paddingBottom: 0 }}>
       <div className="container">
         <div style={{ marginBottom: 48 }}>
-          <span className="eyebrow-2 reveal">05 / The dashboard</span>
+          <span className="eyebrow-2 reveal">07 / The dashboard</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 16px', maxWidth: '22ch', letterSpacing: '-0.02em' }}>
             You see everything.<br /><em style={{ fontStyle: 'italic' }}>Every day.</em>
           </h2>

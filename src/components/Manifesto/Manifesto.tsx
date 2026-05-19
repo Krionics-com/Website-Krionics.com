@@ -31,7 +31,7 @@ export function Manifesto() {
     <section style={{ paddingTop: 96, paddingBottom: 96, background: 'var(--ink)', marginTop: 0, borderTop: '1px solid rgba(245,241,232,0.12)' }}>
       <div className="container">
         <div style={{ marginBottom: 64 }}>
-          <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.16em', color: 'rgba(245,241,232,0.5)', textTransform: 'uppercase' }} className="reveal">08 / How we operate</span>
+          <span style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.16em', color: 'rgba(245,241,232,0.5)', textTransform: 'uppercase' }} className="reveal">10 / How we operate</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 0', maxWidth: '22ch', letterSpacing: '-0.02em', color: 'var(--cream-2)' }}>
             What we will and<br /><em style={{ fontStyle: 'italic' }}>won't</em> do.
           </h2>

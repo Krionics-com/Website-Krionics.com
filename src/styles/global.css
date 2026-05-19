@@ -35,13 +35,13 @@
   --mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 
   /* Layout */
-  --container: 1100px;
-  --container-wide: 1240px;
+  --container: 1200px;
+  --container-wide: 1360px;
   --gutter: 24px;
   --radius-sm: 4px;
   --radius: 8px;
-  --section-y: 96px;
-  --section-y-mobile: 60px;
+  --section-y: 140px;
+  --section-y-mobile: 88px;
 }
 
 /* ── Reset ──────────────────────────────────────────────────── */
@@ -108,7 +108,7 @@ input, textarea, select {
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(40px, 6vw, 76px);
-  line-height: 1.0;
+  line-height: 1.05;
   letter-spacing: -0.025em;
   margin: 0;
 }
@@ -405,11 +405,18 @@ section { padding: var(--section-y) 0; }
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
 .reveal.in { opacity: 1; transform: none; }
 
+/* Stagger delays for child reveals */
+.reveal-d1 { transition-delay: 80ms; }
+.reveal-d2 { transition-delay: 160ms; }
+.reveal-d3 { transition-delay: 240ms; }
+.reveal-d4 { transition-delay: 320ms; }
+.reveal-d5 { transition-delay: 400ms; }
+
 /* ── Dark section ───────────────────────────────────────────── */
 .dark-section {
   background: var(--ink);
   color: var(--cream-2);
-  padding: 96px 0;
+  padding: 140px 0;
 }
 .dark-section .muted { color: rgba(245, 241, 232, 0.6); }
 .dark-section .eyebrow-2 { color: rgba(245, 241, 232, 0.6); }

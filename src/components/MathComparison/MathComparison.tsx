@@ -5,7 +5,7 @@ export function MathComparison() {
     <section style={{ paddingTop: 96 }}>
       <div className="container">
         <div style={{ marginBottom: 48 }}>
-          <span className="eyebrow-2 reveal">02 / The math</span>
+          <span className="eyebrow-2 reveal">05 / The math</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 16px', maxWidth: '22ch', letterSpacing: '-0.02em' }}>
             Here's what an SDR <em style={{ fontStyle: 'italic' }}>actually</em> costs you.
           </h2>

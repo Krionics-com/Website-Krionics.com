@@ -1,17 +1,68 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styles from './Nav.module.css'
+
+const SECTIONS = ['approach', 'services', 'pricing', 'faq'] as const
+
+function useActiveSection() {
+  const [active, setActive] = useState('')
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActive('')
+      return
+    }
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY + 120
+      let current = ''
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id)
+        if (el && el.offsetTop <= scrollY) {
+          current = id
+        }
+      }
+      setActive(current)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [pathname])
+
+  return active
+}
+
+function useScrollProgress() {
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return progress
+}
 
 export function Nav() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
   const isHome = pathname === '/'
+  const activeSection = useActiveSection()
+  const progress = useScrollProgress()
 
   const anchor = (id: string) => isHome ? `#${id}` : `/#${id}`
 
   return (
     <>
       <header className="nav">
+        <div className={styles.progressBar} style={{ width: `${progress}%` }} />
         <div className="container-wide nav-inner">
           <Link to="/" aria-label="Krionics — home" style={{ flexShrink: 0 }}>
             <span className="nav-logo-wrap">
@@ -20,14 +71,16 @@ export function Nav() {
             </span>
           </Link>
           <nav className="nav-links">
-            <a className="nav-link" href={anchor('approach')}>Our approach</a>
-            <a className="nav-link" href={anchor('services')}>Services</a>
-            <a className="nav-link" href={anchor('pricing')}>Pricing</a>
-            <a className="nav-link" href={anchor('faq')}>FAQ</a>
-            <Link to="/about" className="nav-link">About</Link>
-            <Link to="/blog" className="nav-link">Blog</Link>
-            <Link to="/contact" className="nav-link">Contact</Link>
-            <Link to="/dashboard" className="nav-link">Dashboard</Link>
+            {SECTIONS.map((id) => (
+              <a
+                key={id}
+                className={`nav-link ${activeSection === id ? styles.navActive : ''}`}
+                href={anchor(id)}
+              >
+                {id.charAt(0).toUpperCase() + id.slice(1)}
+              </a>
+            ))}
+            <Link to="/about" className={`nav-link ${pathname === '/about' ? styles.navActive : ''}`}>About</Link>
             <Link to="/book" className="btn btn-primary nav-cta" style={{ marginLeft: 8 }}>
               Book a call <span className="arrow">→</span>
             </Link>
@@ -53,14 +106,11 @@ export function Nav() {
               Close ×
             </button>
           </div>
-          <a href={anchor('approach')} onClick={() => setOpen(false)}>Our approach</a>
+          <a href={anchor('approach')} onClick={() => setOpen(false)}>Approach</a>
           <a href={anchor('services')} onClick={() => setOpen(false)}>Services</a>
           <a href={anchor('pricing')} onClick={() => setOpen(false)}>Pricing</a>
           <a href={anchor('faq')} onClick={() => setOpen(false)}>FAQ</a>
           <Link to="/about" onClick={() => setOpen(false)}>About</Link>
-          <Link to="/blog" onClick={() => setOpen(false)}>Blog</Link>
-          <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
-          <Link to="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
           <Link to="/book" style={{ color: 'var(--primary)' }} onClick={() => setOpen(false)}>Book a call →</Link>
         </div>
       )}

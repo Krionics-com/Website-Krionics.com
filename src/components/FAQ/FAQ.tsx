@@ -19,9 +19,9 @@ function FAQItem({ q, a }: FAQItemProps) {
         aria-controls={`faq-${id}`}
       >
         <span>{q}</span>
-        <span className={styles.icon} aria-hidden="true">{open ? '−' : '+'}</span>
+        <span className={`${styles.icon} ${open ? styles.iconOpen : ''}`} aria-hidden="true">+</span>
       </button>
-      <div id={`faq-${id}`} role="region" hidden={!open} className={styles.answer}>
+      <div id={`faq-${id}`} role="region" className={`${styles.answer} ${open ? styles.answerOpen : ''}`}>
         {a}
       </div>
     </div>
@@ -33,7 +33,7 @@ export function FAQ() {
     <section id="faq" style={{ paddingTop: 96, paddingBottom: 96 }}>
       <div className="container">
         <div style={{ marginBottom: 56 }}>
-          <span className="eyebrow-2 reveal">09 / Objections</span>
+          <span className="eyebrow-2 reveal">11 / Objections</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 16px', maxWidth: '22ch', letterSpacing: '-0.02em' }}>
             Questions we actually get.
           </h2>

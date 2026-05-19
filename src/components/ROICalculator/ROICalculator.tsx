@@ -52,7 +52,7 @@ export function ROICalculator() {
     <section id="roi" style={{ background: 'var(--bg-elev)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '96px 0' }}>
       <div className="container">
         <div style={{ marginBottom: 56 }}>
-          <span className="eyebrow-2 reveal">04 / The math doesn't lie</span>
+          <span className="eyebrow-2 reveal">06 / The math doesn't lie</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 0', letterSpacing: '-0.02em' }}>
             What's inaction <em style={{ fontStyle: 'italic' }}>actually</em> costing you?
           </h2>

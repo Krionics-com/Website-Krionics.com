@@ -21,11 +21,11 @@ npm run preview   # Preview production build locally
 
 **Global styles** in `src/styles/global.css`: all brand tokens as CSS custom properties (`--bg`, `--primary` = terracotta `#B85C38`, `--structural` = forest `#1F3D2E`, `--ink` = dark section background). Typography utility classes (`.h1`, `.serif`, `.mono`, `.eyebrow-2`, `.muted`), button classes (`.btn`, `.btn-primary`, `.btn-ghost`), scroll-reveal class (`.reveal` — gets `.in` class from `useScrollReveal` hook).
 
-**Component structure**: each section in `src/components/<Name>/<Name>.tsx` with co-located `<Name>.module.css`. Section order in Home.tsx: Hero → Problem → Machine → MathComparison → ROICalculator → DashboardEmbed → Services → HowItWorks → Pricing → Manifesto → FAQ → FinalCTA → Footer.
+**Component structure**: each section in `src/components/<Name>/<Name>.tsx` with co-located `<Name>.module.css`. Section order in Home.tsx: Hero → SocialProof → Problem → Machine → Services → HowItWorks → MathComparison → ROICalculator → DashboardEmbed → Pricing → Founders → Manifesto → FAQ → FinalCTA → Footer.
 
 **Dashboard tabs**: `src/dashboard/Overview.tsx`, `MeetingsTab.tsx`, `RepliesTab.tsx`, `SequencesTab.tsx`, `InfraTab.tsx` — all display `—` placeholders (real data populates day 15 of program).
 
-**Scroll animations**: `src/hooks/useScrollReveal.ts` observes all `.reveal` elements and adds `.in` class at 12% threshold. Called once in `Home.tsx`.
+**Scroll animations**: `src/hooks/useScrollReveal.ts` uses IntersectionObserver + MutationObserver to observe all `.reveal` elements (including dynamically added ones from tab switches) and adds `.in` class at 10% threshold. Called once in `Home.tsx`.
 
 ## Brand rules
 

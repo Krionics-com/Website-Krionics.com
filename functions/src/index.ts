@@ -5,7 +5,7 @@ import { defineSecret } from 'firebase-functions/params'
 import Groq from 'groq-sdk'
 import type { Request, Response } from 'express'
 
-admin.initializeApp()
+admin.initializeApp({ projectId: 'krionics-39060' })
 const db = admin.firestore()
 
 const groqApiKey = defineSecret('GROQ_API_KEY')

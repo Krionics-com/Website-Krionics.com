@@ -2,15 +2,15 @@
   background: var(--ink);
   color: rgba(245, 241, 232, 0.5);
   border-top: 1px solid rgba(245, 241, 232, 0.08);
-  padding: 60px 0 40px;
+  padding: 88px 0 56px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr 0.85fr 1fr;
   gap: 40px;
-  margin-bottom: 48px;
-  padding-bottom: 48px;
+  margin-bottom: 64px;
+  padding-bottom: 64px;
   border-bottom: 1px solid rgba(245, 241, 232, 0.08);
 }
 
@@ -41,6 +41,22 @@
 
 .emailLink:hover,
 .siteLink:hover {
+  color: var(--cream-2);
+}
+
+.socialLinks {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.socialLink {
+  color: rgba(245, 241, 232, 0.4);
+  transition: color 200ms ease;
+  display: inline-flex;
+}
+
+.socialLink:hover {
   color: var(--cream-2);
 }
 

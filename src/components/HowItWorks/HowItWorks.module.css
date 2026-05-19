@@ -35,15 +35,22 @@
 .stepLine {
   flex: 1;
   width: 1px;
-  background: var(--border-strong);
+  background: linear-gradient(to bottom, var(--border-strong), var(--border));
   margin: 8px 0;
   min-height: 32px;
 }
 
 .stepContent {
-  padding-bottom: 48px;
+  padding-bottom: 72px;
 }
 
 .step:last-child .stepContent {
   padding-bottom: 0;
 }
+
+/* Stagger timeline steps */
+.step:nth-child(1) { transition-delay: 0ms; }
+.step:nth-child(2) { transition-delay: 80ms; }
+.step:nth-child(3) { transition-delay: 160ms; }
+.step:nth-child(4) { transition-delay: 240ms; }
+.step:nth-child(5) { transition-delay: 320ms; }

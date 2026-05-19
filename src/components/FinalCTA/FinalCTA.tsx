@@ -5,7 +5,7 @@ export function FinalCTA() {
     <section style={{ background: 'var(--ink)', color: 'var(--cream-2)', padding: '100px 0', borderTop: '1px solid rgba(245,241,232,0.12)' }}>
       <div className="container" style={{ maxWidth: 720, textAlign: 'center' }}>
         <span className="reveal" style={{ fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.16em', color: 'rgba(245,241,232,0.4)', textTransform: 'uppercase', display: 'block', marginBottom: 32 }}>
-          10 / The decision
+          12 / The decision
         </span>
         <h2 className="serif reveal" style={{ fontSize: 'clamp(40px, 6vw, 72px)', lineHeight: 1.1, letterSpacing: '-0.03em', margin: '0 0 28px', color: 'var(--cream-2)' }}>
           You've read this far.<br /><em style={{ fontStyle: 'italic', color: 'var(--primary)' }}>That tells us something.</em>

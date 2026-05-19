@@ -38,7 +38,7 @@ export function HowItWorks() {
     <section style={{ paddingTop: 96, background: 'var(--bg-elev)', marginTop: 0, borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', paddingBottom: 96 }}>
       <div className="container">
         <div style={{ marginBottom: 64 }}>
-          <span className="eyebrow-2 reveal">06 / How it works</span>
+          <span className="eyebrow-2 reveal">04 / How it works</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 16px', maxWidth: '22ch', letterSpacing: '-0.02em' }}>
             From signed to running<br />in <em style={{ fontStyle: 'italic' }}>14 days.</em>
           </h2>
@@ -47,9 +47,9 @@ export function HowItWorks() {
           </p>
         </div>
 
-        <div className={`reveal ${styles.timeline}`}>
+        <div className={styles.timeline}>
           {STEPS.map((step, i) => (
-            <div key={step.day} className={styles.step}>
+            <div key={step.day} className={`reveal ${styles.step}`}>
               <div className={styles.stepLeft}>
                 <div className={styles.stepMarker}>{step.marker}</div>
                 {i < STEPS.length - 1 && <div className={styles.stepLine} />}

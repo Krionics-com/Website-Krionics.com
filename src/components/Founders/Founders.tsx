@@ -35,7 +35,7 @@ export function Founders() {
     <section style={{ paddingTop: 120, paddingBottom: 120, borderTop: '1px solid var(--border)' }}>
       <div className="container">
         <div style={{ marginBottom: 56 }}>
-          <span className="eyebrow-2 reveal">Who we are</span>
+          <span className="eyebrow-2 reveal">09 / Who we are</span>
           <h2 className="h1 reveal" style={{ margin: '20px 0 16px', maxWidth: '28ch', letterSpacing: '-0.02em' }}>
             We've sat on your side of the table.<br />
             <em style={{ fontStyle: 'italic' }}>That's the difference.</em>

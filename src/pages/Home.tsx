@@ -12,6 +12,7 @@ import { Manifesto } from '../components/Manifesto/Manifesto'
 import { FAQ } from '../components/FAQ/FAQ'
 import { FinalCTA } from '../components/FinalCTA/FinalCTA'
 import { Footer } from '../components/Footer/Footer'
+import { Founders } from '../components/Founders/Founders'
 
 export function Home() {
   useScrollReveal()
@@ -26,6 +27,7 @@ export function Home() {
       <ROICalculator />
       <DashboardEmbed />
       <Pricing />
+      <Founders />
       <Manifesto />
       <FAQ />
       <FinalCTA />

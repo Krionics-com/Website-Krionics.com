@@ -14,7 +14,19 @@ export function useScrollReveal() {
       { threshold: 0.1 }
     )
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
+    // Observe all existing .reveal elements
+    const observeAll = () => {
+      document.querySelectorAll('.reveal:not(.in)').forEach((el) => observer.observe(el))
+    }
+    observeAll()
+
+    // Watch for dynamically added .reveal elements (e.g. tab switches)
+    const mutation = new MutationObserver(() => observeAll())
+    mutation.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+      mutation.disconnect()
+    }
   }, [])
 }

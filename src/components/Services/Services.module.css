@@ -1,14 +1,20 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 32px;
 }
 
 .card {
-  padding: 40px;
+  padding: 52px;
   border: 1px solid var(--border);
   border-top: 3px solid var(--border);
   border-radius: 4px;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(26, 31, 27, 0.08);
 }
 
 .card:first-child {
@@ -50,6 +56,12 @@
   border-radius: 3px;
   letter-spacing: 0.06em;
   color: var(--text-2);
+  transition: border-color 200ms ease, color 200ms ease;
+}
+
+.toolChip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .deliverables {
